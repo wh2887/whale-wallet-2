@@ -1,32 +1,37 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
+    <Nav/>
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+  @import "~@/assets/styles/helper.scss";
+  @import "assets/styles/reset.scss";
 
-#nav {
-  padding: 30px;
+  #app {
+    max-width: 500px;
+    height: 100vh;
+    margin: 0 auto;
+    font-family: $font-hei;
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: $color-nearblack;
+    display: flex;
+    flex-direction: column;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+    > :first-child {
+      flex-grow: 1;
     }
   }
-}
+
 </style>
+<script>
+  import Nav from '@/components/Nav'
+
+  export default {
+    components: {Nav}
+  }
+</script>
