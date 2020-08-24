@@ -25,7 +25,7 @@
   @import "~@/assets/styles/helper.scss";
 
   nav {
-    background: #F4F4F4;
+    background: $color-f4;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,7 +50,7 @@
           &.circleBg {
             padding: .1em;
             border-radius: .5em;
-            color: white;
+            color: $color-f;
             background: $color-highlight;
           }
         }
