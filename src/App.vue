@@ -5,6 +5,14 @@
   </div>
 </template>
 
+<script>
+  import Nav from '@/components/Nav'
+
+  export default {
+    components: {Nav}
+  }
+</script>
+
 <style lang="scss">
   @import "~@/assets/styles/helper.scss";
   @import "assets/styles/reset.scss";
@@ -25,13 +33,9 @@
     > :first-child {
       flex-grow: 1;
     }
+    @media (max-width: 320px){
+      font-size: 14px;
+    }
   }
 
 </style>
-<script>
-  import Nav from '@/components/Nav'
-
-  export default {
-    components: {Nav}
-  }
-</script>
