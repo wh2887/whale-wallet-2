@@ -57,7 +57,7 @@
       </div>
 
       <div class="detailList">
-        <span class="title">今天 | 支出 ： ￥ 300.00</span>
+        <span class="title">昨天 | 支出 ： ￥ 300.00</span>
         <ol>
           <li>
             <div class="left">
@@ -79,7 +79,7 @@
       </div>
 
       <div class="detailList">
-        <span class="title">今天 | 支出 ： ￥ 300.00</span>
+        <span class="title">前天 | 支出 ： ￥ 300.00</span>
         <ol>
           <li>
             <div class="left">
@@ -101,7 +101,7 @@
       </div>
 
       <div class="detailList">
-        <span class="title">今天 | 支出 ： ￥ 300.00</span>
+        <span class="title">8月10日 | 支出 ： ￥ 300.00</span>
         <ol>
           <li>
             <div class="left">
@@ -123,7 +123,7 @@
       </div>
 
       <div class="detailList">
-        <span class="title">今天 | 支出 ： ￥ 300.00</span>
+        <span class="title">2019年11月22日 | 支出 ： ￥ 300.00</span>
         <ol>
           <li>
             <div class="left">
@@ -170,13 +170,17 @@
 
     > header {
       display: block;
-      width: 94%;
+      width: $width;
       background: $color-f4;
       margin-top: 1.4em;
+      padding-bottom: 1.6em ;
       border-radius: .5em;
+      background: $color-highlight-thin;
+      overflow: hidden;
 
       > .top {
         padding: .5em 0;
+        background: #F4F4F4;
       }
 
     }
@@ -186,7 +190,7 @@
       margin-top: 1.4em;
       border-radius: .5em .5em 0 0;
 
-      overflow-y: auto;
+      overflow-y: scroll;
       // 隐藏滚动条
       &::-webkit-scrollbar { width: 0 !important }   // chrome 和 Safari
       &{ overflow: -moz-scrollbars-none; }           // IE 10+

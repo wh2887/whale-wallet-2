@@ -31,7 +31,7 @@
       display: flex;
       flex-direction: row;
       justify-content: center;
-      padding: 0 0 .5em 0;
+      padding: .5em 0 ;
 
       > li {
         padding: .3em 0;

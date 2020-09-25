@@ -3,6 +3,8 @@ $color-nearblack: #3E3A39;
 $color-highlight: #68B0AB;
 $color-f: #FFFFFF;
 $color-f4: #F4F4F4;
+$color-highlight-thin: rgba(218,236,234,.8);
+$width:94%;
 
 
 %displayAuto {
@@ -10,5 +12,10 @@ $color-f4: #F4F4F4;
   display: flex;
   align-items: center;
   flex-direction: column;
-  overflow: auto;
+  //overflow-y: scroll;
+  overflow-y: auto;
+  // 隐藏滚动条
+  &::-webkit-scrollbar { width: 0 !important }   // chrome 和 Safari
+  &{ overflow: -moz-scrollbars-none; }           // IE 10+
+  &{ -ms-overflow-style: none; }                 // Firefox
 }
