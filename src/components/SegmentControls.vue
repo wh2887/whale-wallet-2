@@ -1,5 +1,5 @@
 <template>
-  <div class="bottom">
+  <div class="segment-controls-wrapper">
     <ul>
       <li :class="{selected: type === '-'}" @click="selectType('-')">支出</li>
       <li :class="{selected:type === '+'}" @click="selectType('+')">收入</li>
@@ -26,7 +26,7 @@
 <style lang="scss" scoped>
   @import "~@/assets/styles/helper.scss";
 
-   .bottom {
+   .segment-controls-wrapper {
     > ul {
       display: flex;
       flex-direction: row;
