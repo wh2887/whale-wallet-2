@@ -168,29 +168,12 @@
   .details-wrapper {
     @extend %displayAuto;
 
-    > header {
-      display: block;
-      width: $width;
-      background: $color-f4;
-      margin-top: 1.4em;
-      padding-bottom: 1.6em ;
-      border-radius: .5em;
-      background: $color-highlight-thin;
-      overflow: hidden;
-
-      > .top {
-        padding: .5em 0;
-        background: #F4F4F4;
-      }
-
+     header {
+      display: flex; justify-content: center; flex-direction: column; width: $width; background: $color-f4;
+      margin-top: $top-margin; border-radius: .5em; background: $color-highlight-thin;
+      > .top { border-radius: .5em .5em 0 0; padding: .5em 0; background: #F4F4F4; }
     }
-
-    main {
-      width: 94%;
-      margin-top: 1.4em;
-      border-radius: .5em .5em 0 0;
-
-      overflow-y: scroll;
+    main { width: 94%; margin-top: $top-margin/2; border-radius: .5em .5em 0 0; overflow-y: scroll;
       // 隐藏滚动条
       &::-webkit-scrollbar { width: 0 !important }   // chrome 和 Safari
       &{ overflow: -moz-scrollbars-none; }           // IE 10+
@@ -200,63 +183,29 @@
         background: $color-f;
         border-radius: .5em;
         &:not(:first-child){
-          margin-top: 1.4em;
+          margin-top: $top-margin/2;
         }
-
-        > .title {
-          padding: 12px 0;
-        }
-
+        > .title { padding: 12px 0; }
         > ol {
-
           > li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: .2em 1.2em;
-
-            > .left {
-              border-radius: 50%;
-              font-size: 1.8em;
-              background: $color-highlight;
-            }
-
-            > .liContent {
-              display: flex;
-              flex-grow: 1;
-              align-items: center;
-              justify-content: space-between;
-              font-size: .8em;
-
+            display: flex; justify-content: space-between; align-items: center; padding: .2em 1.2em;
+            > .left { border-radius: 50%; font-size: 1.8em; background: $color-highlight; }
+            > .liContent { display: flex; flex-grow: 1; align-items: center; justify-content: space-between; font-size: .8em;
               > .liContent-left {
-
                 &:first-child {
                   padding: 0 1.2em;
-
                   > span {
-                    &:not(:last-child) {
-                      display: flex;
-                      justify-content: flex-start;
-                    }
+                    &:not(:last-child) { display: flex; justify-content: flex-start; }
                   }
-
-                  &:first-child {
-                    display: inline-block;
-                  }
+                  &:first-child { display: inline-block; }
                 }
               }
-
-              > .liContent-right {
-                font-size: 1.2em;
-              }
+              > .liContent-right { font-size: 1.2em; }
             }
-
           }
         }
       }
-
     }
-
   }
 
 </style>
