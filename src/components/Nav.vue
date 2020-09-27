@@ -33,6 +33,7 @@
     > .item {
       width: 25%;
       padding: 3px 0;
+      color: $color-nearblack;
 
       > :nth-child(1) {
         font-size: 2em;
