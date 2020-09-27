@@ -1,7 +1,7 @@
 <template>
   <div class="tabs-wrapper">
     <ul>
-      <li :class="{'selected':iconName === icon.iconName}" v-for="icon in iconTable" :key="icon.id" @click="selectIcon(icon.iconName)">
+      <li :class="{'selected':iconName === icon.iconName}" v-for="icon in iconTable" :key="icon.id" @click="selectIcon(icon)">
         <Icon :name="icon.iconName"/>
       </li>
       <i></i><i></i><i></i><i></i><i></i><i></i>
@@ -34,8 +34,10 @@
       {id: 10, type: '-', iconName: 'jiaotong',text:'水果'},
       {id: 11, type: '-', iconName: 'youxi',text:'水果'}
     ];
-    selectIcon(iconName: string) {
-      this.iconName = iconName
+
+    selectIcon(icon: Tag) {
+      this.iconName = icon.iconName
+      this.$emit('update:value',icon)
       return;
     }
 

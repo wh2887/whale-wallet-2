@@ -5,7 +5,7 @@
       <SegmentControls/>
     </div>
     <div class="middle">
-      <Tabs/>
+      <Tabs :value.sync="record.tags"/>
     </div>
     <div class="bottom">
       <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
@@ -28,6 +28,10 @@
   })
   export default class Money extends Vue {
     record = defaultRecordList;
+
+    updated(){
+      console.log(this.record);
+    }
 
     saveRecord(){
       console.log('保存一次记账！');
