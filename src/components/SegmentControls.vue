@@ -10,11 +10,17 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop, Watch} from 'vue-property-decorator';
 
   @Component
   export default class SegmentControls extends Vue {
-    type = '-';
+    @Prop(String) value!: string;
+    type = this.value;
+
+    @Watch('type')
+    onTypeChanged() {
+      this.$emit('update:value',this.type);
+    }
 
     selectType(value: string) {
       this.type = value;
@@ -26,12 +32,12 @@
 <style lang="scss" scoped>
   @import "~@/assets/styles/helper.scss";
 
-   .segment-controls-wrapper {
+  .segment-controls-wrapper {
     > ul {
       display: flex;
       flex-direction: row;
       justify-content: center;
-      padding: .5em 0 ;
+      padding: .5em 0;
 
       > li {
         padding: .3em 0;

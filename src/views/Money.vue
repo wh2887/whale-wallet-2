@@ -2,7 +2,7 @@
   <div class="money-wrapper">
     <div class="top">
       <h2>记一笔</h2>
-      <SegmentControls/>
+      <SegmentControls :value.sync="record.type"/>
     </div>
     <div class="middle">
       <Tabs :value.sync="record.tags"/>

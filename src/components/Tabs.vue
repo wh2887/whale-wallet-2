@@ -1,7 +1,8 @@
 <template>
   <div class="tabs-wrapper">
     <ul>
-      <li :class="{'selected':iconName === icon.iconName}" v-for="icon in iconTable" :key="icon.id" @click="selectIcon(icon)">
+      <li :class="{'selected':iconName === icon.iconName}" v-for="icon in iconTable" :key="icon.id"
+          @click="selectIcon(icon)">
         <Icon :name="icon.iconName"/>
       </li>
       <i></i><i></i><i></i><i></i><i></i><i></i>
@@ -12,32 +13,33 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
   import Icon from '@/components/Icon.vue';
 
   @Component({
-    components:{Icon},
+    components: {Icon},
 
   })
   export default class Tabs extends Vue {
-    iconName = 'shuiguo';
+    @Prop() value!: Tag;
+    iconName = this.value.iconName;
     iconTable = [
-      {id: 1, type: '-', iconName: 'shuiguo',text:'水果'},
-      {id: 2, type: '-', iconName: 'shuidianmei',text:'水果'},
-      {id: 3, type: '-', iconName: 'xinyongkahuankuan',text:'水果'},
-      {id: 4, type: '-', iconName: 'fangzu',text:'水果'},
-      {id: 5, type: '-', iconName: 'lifa',text:'水果'},
-      {id: 6, type: '-', iconName: 'huafei',text:'水果'},
-      {id: 7, type: '-', iconName: 'fushi',text:'水果'},
-      {id: 8, type: '-', iconName: 'canyinye',text:'水果'},
-      {id: 9, type: '-', iconName: 'yule',text:'水果'},
-      {id: 10, type: '-', iconName: 'jiaotong',text:'水果'},
-      {id: 11, type: '-', iconName: 'youxi',text:'水果'}
+      {id: 1, type: '-', iconName: 'shuiguo', text: '水果'},
+      {id: 2, type: '-', iconName: 'shuidianmei', text: '水果'},
+      {id: 3, type: '-', iconName: 'xinyongkahuankuan', text: '水果'},
+      {id: 4, type: '-', iconName: 'fangzu', text: '水果'},
+      {id: 5, type: '-', iconName: 'lifa', text: '水果'},
+      {id: 6, type: '-', iconName: 'huafei', text: '水果'},
+      {id: 7, type: '-', iconName: 'fushi', text: '水果'},
+      {id: 8, type: '-', iconName: 'canyinye', text: '水果'},
+      {id: 9, type: '-', iconName: 'yule', text: '水果'},
+      {id: 10, type: '-', iconName: 'jiaotong', text: '水果'},
+      {id: 11, type: '-', iconName: 'youxi', text: '水果'}
     ];
 
     selectIcon(icon: Tag) {
-      this.iconName = icon.iconName
-      this.$emit('update:value',icon)
+      this.iconName = icon.iconName;
+      this.$emit('update:value', icon);
       return;
     }
 
@@ -46,35 +48,37 @@
 
 <style lang="scss" scoped>
   @import "~@/assets/styles/helper.scss";
-.tabs-wrapper{
-  @extend %displayAuto;
-  ul {
-    display: flex;
-    justify-content: space-between;
-    padding: 1em;
-    flex-wrap: wrap;
-    background: $color-f;
 
-    li {
-      border-radius: 4px;
-      font-size: 1.8em;
-      background: $color-highlight;
-      margin: .3em;
-      width: $icon-width;
-      height: $icon-width;
-      line-height: $icon-width;
+  .tabs-wrapper {
+    @extend %displayAuto;
 
-      &.selected {
-        color: white;
+    ul {
+      display: flex;
+      justify-content: space-between;
+      padding: 1em;
+      flex-wrap: wrap;
+      background: $color-f;
+
+      li {
+        border-radius: 4px;
+        font-size: 1.8em;
+        background: $color-highlight;
+        margin: .3em;
+        width: $icon-width;
+        height: $icon-width;
+        line-height: $icon-width;
+
+        &.selected {
+          color: white;
+        }
+      }
+
+      i {
+        width: $icon-width;
+        height: $icon-width;
+        margin: .3em;
+        font-size: 1.8em;
       }
     }
-
-    i {
-      width: $icon-width;
-      height: $icon-width;
-      margin: .3em;
-      font-size: 1.8em;
-    }
   }
-}
 </style>
