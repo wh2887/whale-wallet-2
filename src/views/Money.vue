@@ -31,6 +31,7 @@
   import 'ant-design-vue/dist/antd.css';
   import {Moment} from 'moment'
   import Icon from '@/components/Icon.vue';
+  import dayjs from 'dayjs';
 
   Vue.component(DatePicker.name, DatePicker);
 
@@ -40,10 +41,15 @@
   export default class Money extends Vue {
     record = defaultRecordList;
     time = ''
-    today = new Date().toISOString()
+    today = dayjs(new Date()).format('YYYY-MM-DD')
+
+    updated(){
+      console.log(this.record);
+    }
 
     onChange(date: Moment | string, dateString: string) {
       this.time = dateString
+      this.record.createdAt = this.time
     }
 
     saveRecord() {
