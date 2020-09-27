@@ -22,17 +22,17 @@
   export default class Tabs extends Vue {
     iconName = 'shuiguo';
     iconTable = [
-      {id: 1, type: '-', iconName: 'shuiguo'},
-      {id: 2, type: '-', iconName: 'shuidianmei'},
-      {id: 3, type: '-', iconName: 'xinyongkahuankuan'},
-      {id: 4, type: '-', iconName: 'fangzu'},
-      {id: 5, type: '-', iconName: 'lifa'},
-      {id: 6, type: '-', iconName: 'huafei'},
-      {id: 7, type: '-', iconName: 'fushi'},
-      {id: 8, type: '-', iconName: 'canyinye'},
-      {id: 9, type: '-', iconName: 'yule'},
-      {id: 10, type: '-', iconName: 'jiaotong'},
-      {id: 11, type: '-', iconName: 'youxi'}
+      {id: 1, type: '-', iconName: 'shuiguo',text:'水果'},
+      {id: 2, type: '-', iconName: 'shuidianmei',text:'水果'},
+      {id: 3, type: '-', iconName: 'xinyongkahuankuan',text:'水果'},
+      {id: 4, type: '-', iconName: 'fangzu',text:'水果'},
+      {id: 5, type: '-', iconName: 'lifa',text:'水果'},
+      {id: 6, type: '-', iconName: 'huafei',text:'水果'},
+      {id: 7, type: '-', iconName: 'fushi',text:'水果'},
+      {id: 8, type: '-', iconName: 'canyinye',text:'水果'},
+      {id: 9, type: '-', iconName: 'yule',text:'水果'},
+      {id: 10, type: '-', iconName: 'jiaotong',text:'水果'},
+      {id: 11, type: '-', iconName: 'youxi',text:'水果'}
     ];
     selectIcon(iconName: string) {
       this.iconName = iconName

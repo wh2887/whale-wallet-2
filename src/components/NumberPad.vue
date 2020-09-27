@@ -1,11 +1,11 @@
 <template>
   <div class="numberPad-wrapper">
 
-    <div class="output">
+    <div class="output-wrapper">
       <button>今日</button>
-      <label>
-        <input type="text" :value="`${output}`">
-      </label>
+      <div class="output">
+        {{output}}
+      </div>
     </div>
     <div class="numberPad">
       <button @click="inputContent">1</button>
@@ -31,18 +31,28 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import
+    Vue from 'vue';
+  import {Component, Prop, Watch} from 'vue-property-decorator';
   import Icon from '@/components/Icon.vue';
+
   @Component({
     components: {Icon}
   })
   export default class NumberPad extends Vue {
-    output = '';
+    @Prop(Number) value!: number;
+    output = this.value.toString();
+    result = 0
+
+    @Watch('output')
+    onOutputChanged(){
+      this.$emit('update:value',this.result)
+  }
 
     inputContent(event: MouseEvent) {
       const button = event.target as HTMLButtonElement;
       const input = button.textContent as string;
+      if (this.output.length >= 16) {return;}
       if (this.output === '0') {
         if ('0123456789'.indexOf(input) >= 0) {
           //如果是其中一个就直接替换默认的0位其中的
@@ -57,33 +67,35 @@
         this.output = '0.';
       }
 
-      if(this.output[this.output.length-1] === ('+')){
-        if (input ==='+') {
+      if (this.output === '+') {
+        this.output = '';
+      }
+      if (this.output[this.output.length - 1] === ('+')) {
+        if (input === '+') {
           return;
         }
       }
 
-      if(this.output[this.output.length-1] === ('.')){
-        if (input ==='.') {
-          this.output.slice(this.output.length-1,-1)
-          console.log('.');
-        }
+      if (this.output[this.output.length - 1] === ('.')) {
+        if (input === '.') { return; }
       }
 
       this.output += input;
     }
 
 
-    done(){
-
-      console.log(this.output);
+    done() {
+      this.result = eval(this.output);
+      this.output = '';
+      this.$emit('submit')
     }
 
     clear() {
       this.output = '';
     }
-    clearOne(){
-      this.output = this.output.slice(0,-1)
+
+    clearOne() {
+      this.output = this.output.slice(0, -1);
     }
 
   }
@@ -102,7 +114,7 @@
     border-radius: 12px;
     margin: 1em;
 
-    .output {
+    .output-wrapper {
       width: 100%;
       height: 3em;
       border-radius: 8px;
@@ -123,55 +135,51 @@
         flex-shrink: 0;
       }
 
-      > label {
+      > .output {
+        font-family: Consolas monospace;
+        overflow: auto;
         flex-grow: 1;
         margin: 0 0 0 .8em;
-
-        input {
-          width: 100%;
-          border-radius: 4px;
-          border: none;
-          line-height: 1.5em;
-          font-size: 1.5em;
-          text-align: right;
-        }
+        border-radius: 4px;
+        line-height: 1.5em;
+        font-size: 1.5em;
+        text-align: right;
       }
     }
+  }
 
-    .numberPad {
-      border-radius: 12px;
-      width: 100%;
-      flex: 1;
+  .numberPad {
+    border-radius: 12px;
+    width: 100%;
+    flex: 1;
 
-      > button {
-        width: 20%;
-        height: 19%;
-        margin: .4em;
-        border: 1px solid $color-highlight;
-        background: $color-f;
-        font-size: 1em;
-        line-height: 1em;
-        border-radius: 8px;
-        user-select: none;
-        text-align: center;
-        font-weight: bold;
+    > button {
+      width: 20%;
+      height: 19%;
+      margin: .4em;
+      border: 1px solid $color-highlight;
+      background: $color-f;
+      font-size: 1em;
+      line-height: 1em;
+      border-radius: 8px;
+      user-select: none;
+      text-align: center;
+      font-weight: bold;
+
+      &:active {
+        color: $color-f;
+        background: $color-highlight;
+      }
+
+      &:last-child {
+        background: #ffaa71;
 
         &:active {
-          color: $color-f;
-          background: $color-highlight;
-        }
-
-        &:last-child {
-          background: #ffaa71;
-
-          &:active {
-            background: white;
-            color: black;
-          }
+          background: white;
+          color: black;
         }
       }
     }
-
   }
 
 </style>

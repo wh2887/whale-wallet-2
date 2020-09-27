@@ -2,13 +2,13 @@
   <div class="money-wrapper">
     <div class="top">
       <h2>记一笔</h2>
-      <SegmentControls />
+      <SegmentControls/>
     </div>
     <div class="middle">
-      <Tabs />
+      <Tabs/>
     </div>
     <div class="bottom">
-      <NumberPad />
+      <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     </div>
   </div>
 
@@ -17,15 +17,21 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Watch} from 'vue-property-decorator';
   import SegmentControls from '@/components/SegmentControls.vue';
   import Tabs from '@/components/Tabs.vue';
   import NumberPad from '@/components/NumberPad.vue';
+  import defaultRecordList from '@/constants/defaultRecordList';
 
   @Component({
     components: {NumberPad, Tabs, SegmentControls}
   })
   export default class Money extends Vue {
+    record = defaultRecordList;
+
+    saveRecord(){
+      console.log('保存一次记账！');
+    }
   }
 </script>
 
