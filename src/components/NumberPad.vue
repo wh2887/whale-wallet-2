@@ -90,7 +90,7 @@
     done() {
       this.result = eval(this.output);
       this.output = '';
-      this.$emit('submit')
+      this.$emit('submit',this.result)
     }
 
     clear() {

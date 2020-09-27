@@ -3,7 +3,7 @@
     <div class="top">
       <a-date-picker v-model="time" placeholder="Select Time" @change="onChange">
         <h3>
-          {{ time ? time :  today}}
+          {{ time ? time : today}}
           <Icon name="calendar"/>
         </h3>
       </a-date-picker>
@@ -29,7 +29,7 @@
   import defaultRecordList from '@/constants/defaultRecordList';
   import {DatePicker} from 'ant-design-vue';
   import 'ant-design-vue/dist/antd.css';
-  import {Moment} from 'moment'
+  import {Moment} from 'moment';
   import Icon from '@/components/Icon.vue';
   import dayjs from 'dayjs';
 
@@ -40,19 +40,24 @@
   })
   export default class Money extends Vue {
     record = defaultRecordList;
-    time = ''
-    today = dayjs(new Date()).format('YYYY-MM-DD')
+    time = '';
+    today = dayjs(new Date()).format('YYYY-MM-DD');
 
-    updated(){
+    created() {
+      this.record.createdAt = this.today;
+    }
+
+    updated() {
       console.log(this.record);
     }
 
     onChange(date: Moment | string, dateString: string) {
-      this.time = dateString
-      this.record.createdAt = this.time
+      this.time = dateString;
+      this.record.createdAt = this.time;
     }
 
     saveRecord() {
+      this.$store.commit('createRecord', this.record);
       console.log('保存一次记账！');
     }
   }

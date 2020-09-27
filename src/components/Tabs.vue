@@ -58,6 +58,7 @@
       padding: 1em;
       flex-wrap: wrap;
       background: $color-f;
+      border-radius: $bg-radius;
 
       li {
         border-radius: 4px;
