@@ -8,7 +8,7 @@
       <Tabs :value.sync="record.tags"/>
     </div>
     <div class="bottom">
-      <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
+      <NumberPad :value.sync="record.amount" :icon="record.tags.iconName" @submit="saveRecord"/>
     </div>
   </div>
 
@@ -28,10 +28,6 @@
   })
   export default class Money extends Vue {
     record = defaultRecordList;
-
-    updated(){
-      console.log(this.record);
-    }
 
     saveRecord(){
       console.log('保存一次记账！');

@@ -4,7 +4,7 @@
       <div class="top">
         8月结余
       </div>
-      <SegmentControls/>
+      <SegmentControls value="-"/>
     </header>
     <main>
 

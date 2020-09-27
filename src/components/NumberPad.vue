@@ -2,7 +2,9 @@
   <div class="numberPad-wrapper">
 
     <div class="output-wrapper">
-      <button>今日</button>
+      <div class="output-icon">
+        <Icon :name="icon"/>
+      </div>
       <div class="output">
         {{output}}
       </div>
@@ -41,6 +43,7 @@
   })
   export default class NumberPad extends Vue {
     @Prop(Number) value!: number;
+    @Prop() icon!: string;
     output = this.value.toString();
     result = 0
 
@@ -125,13 +128,11 @@
       padding: .5em 12px;
       margin: $top-margin/2 0;
 
-      > button {
-        font-size: .9em;
-        padding: .5em .7em;
-        background: $color-highlight;
-        color: $color-f;
+      > .output-icon {
+        font-size: 1.5em;
+        color: $color-highlight;
         border: none;
-        border-radius: 8px;
+        border-bottom: 2px solid $color-highlight;
         flex-shrink: 0;
       }
 
