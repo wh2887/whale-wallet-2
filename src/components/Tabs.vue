@@ -18,7 +18,6 @@
 
   @Component({
     components: {Icon},
-
   })
   export default class Tabs extends Vue {
     @Prop() value!: Tag;

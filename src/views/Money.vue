@@ -52,9 +52,6 @@
       this.record.createdAt = this.today;
     }
 
-    updated() {
-      console.log(this.record);
-    }
 
     onChange(date: Moment | string, dateString: string) {
       this.time = dateString;
