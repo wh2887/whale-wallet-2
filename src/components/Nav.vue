@@ -29,6 +29,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 3;
 
     > .item {
       width: 25%;
