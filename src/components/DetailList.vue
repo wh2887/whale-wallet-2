@@ -3,14 +3,19 @@
     <ul v-for="(group,index) in dataSource" :key="index">
       <li>
         <span>{{group.title}}</span>
-        <span>支: 156.00</span>
+        <span>收入: {{group.incomeTotal}} | 支出: {{group.payTotal}}</span>
       </li>
       <li class="daily-record" v-for="item in group.items" :key="item.id">
         <div class="li-left">
           <Icon :name="item.tags.iconName"/>
           <span>{{item.tags.text}}</span>
         </div>
-        <span class="li-right">{{item.amount}}</span>
+        <span class="li-right" v-if="item.tags.type === '-'">
+          -{{item.amount.toFixed(2)}}
+        </span>
+        <span class="li-right" v-else>
+          +{{item.amount.toFixed(2)}}
+        </span>
       </li>
     </ul>
   </div>

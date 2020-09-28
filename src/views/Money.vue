@@ -1,18 +1,16 @@
 <template>
   <div class="money-wrapper">
     <div class="top">
-
       <a-date-picker v-model="time" placeholder="Select Time" @change="onChange">
         <h3>
           {{ time ? time : beautify}}
           <Icon name="calendar"/>
         </h3>
       </a-date-picker>
-
       <SegmentControls :value.sync="record.type"/>
     </div>
     <div class="middle">
-      <Tabs :value.sync="record.tags"/>
+      <Tabs :value.sync="record.tags" :record-type="record.type"/>
     </div>
     <div class="bottom">
       <NumberPad :value.sync="record.amount" :icon="record.tags.iconName" @submit="saveRecord"/>
@@ -34,7 +32,6 @@
   import {Moment} from 'moment';
   import Icon from '@/components/Icon.vue';
   import dayjs from 'dayjs';
-  import clone from '@/lib/clone';
 
   Vue.component(DatePicker.name, DatePicker);
 

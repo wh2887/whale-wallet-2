@@ -63,9 +63,12 @@
       const {recordList} = this;
       if (recordList.length === 0) {return []; }
       const newList = clone(recordList).sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
-      const result = [
+      type Result = { title: string; payTotal?: number; incomeTotal?: number; items: RecordItem[] }[]
+      const result: Result = [
         {
           title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'),
+          payTotal: 0,
+          incomeTotal: 0,
           items: [newList[0]]
         }
       ];
@@ -78,7 +81,20 @@
           result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]});
         }
       }
-
+      result.map(group => {
+        group.payTotal = group.items.reduce((sum, item) => {
+          if (item.type === '-') {
+            sum += item.amount;
+          }
+          return sum;
+        }, 0);
+        group.incomeTotal = group.items.reduce((sum, item) => {
+          if (item.type === '+') {
+            sum += item.amount;
+          }
+          return sum;
+        }, 0);
+      });
       return result;
     }
 
