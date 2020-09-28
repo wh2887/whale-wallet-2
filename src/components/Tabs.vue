@@ -5,6 +5,9 @@
           @click="selectIcon(icon)">
         <Icon :name="icon.iconName"/>
       </li>
+      <li @click="manageTags" class="manage">
+        <Icon :name=" 'add'"/>
+      </li>
       <i></i><i></i><i></i><i></i><i></i><i></i>
     </ul>
 
@@ -36,6 +39,10 @@
       {id: 10, type: '-', iconName: 'jiaotong', text: '交通'},
       {id: 11, type: '-', iconName: 'youxi', text: '水游戏'}
     ];
+
+    manageTags() {
+      this.$router.push({path: '/tagsmanage/' + `${this.recordType}`});
+    }
 
     getCurrentTagList(type: string) {
       const incomeTagList: Tag[] = [];
@@ -88,6 +95,9 @@
 
         &.selected {
           color: white;
+        }
+
+        &.manage {
         }
       }
 

@@ -4,6 +4,8 @@ import Details from '@/views/Details.vue';
 import Statistic from '@/views/Statistic.vue';
 import Money from '@/views/Money.vue';
 import More from '@/views/More.vue';
+import TagsManage from '@/views/TagsManage.vue';
+import TagEdit from '@/views/TagEdit.vue';
 
 Vue.use(VueRouter);
 
@@ -26,6 +28,15 @@ const routes: Array<RouteConfig> = [
     path: '/money',
     name: 'money',
     component: Money
+  },
+  {
+    path: '/tagsmanage/:recordType',
+    name: 'tagsmanage',
+    component: TagsManage,
+  },
+  {
+    path: '/tagsmanage/:recordType/tagedit',
+    component: TagEdit
   },
   {
     path: '/more',
