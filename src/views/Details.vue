@@ -28,7 +28,7 @@
       </div>
       <div class="receipt-wrapper">
         <div class="receipt">
-          <DetailList :data-source="groupedList()"/>
+          <DetailList :data-source="groupedList"/>
         </div>
       </div>
     </header>
@@ -44,35 +44,42 @@
   import SegmentControls from '@/components/SegmentControls.vue';
   import DetailList from '@/components/DetailList.vue';
   import Icon from '@/components/Icon.vue';
+  import clone from '@/lib/clone';
+  import dayjs from 'dayjs';
 
   @Component({
     components: {DetailList, SegmentControls, Icon}
   })
   export default class Details extends Vue {
-    get recordList() {
-      return (this.$store.state as RootState).recordList;
-    }
-
     beforeCreate() {
       this.$store.commit('fetchRecords');
     }
 
-    created() {
-      this.groupedList();
+    get recordList() {
+      return (this.$store.state as RootState).recordList;
     }
 
-    groupedList() {
+    get groupedList() {
       const {recordList} = this;
-      type HashTableValue = { title: string; items: RecordItem[] }
-
-      const hashTable: { [key: string]: HashTableValue } = {};
-      console.log(recordList.length);
-      for (let i = 0; i < recordList.length; i++) {
-        const [date, time] = recordList[i].createdAt!.split('T');
-        hashTable[date] = hashTable[date] || {title: date, items: []};
-        hashTable[date].items.push(recordList[i]);  // 此时获得的 hashTable 为按日期分组的数据
+      if (recordList.length === 0) {return []; }
+      const newList = clone(recordList).sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+      const result = [
+        {
+          title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'),
+          items: [newList[0]]
+        }
+      ];
+      for (let i = 1; i < newList.length; i++) {
+        const current = newList[i];
+        const last = result[result.length - 1];
+        if (dayjs(last.title).isSame(dayjs(current.createdAt), 'day')) {
+          last.items.push(current);
+        } else {
+          result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]});
+        }
       }
-      return hashTable;
+
+      return result;
     }
 
   }

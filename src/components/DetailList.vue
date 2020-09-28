@@ -1,5 +1,5 @@
 <template>
-  <div class="detailList">
+  <div class="detailList" v-if="dataSource.length>0">
     <ul v-for="(group,index) in dataSource" :key="index">
       <li>
         <span>{{group.title}}</span>
@@ -7,12 +7,17 @@
       </li>
       <li class="daily-record" v-for="item in group.items" :key="item.id">
         <div class="li-left">
-          <Icon name="shuiguo"/>
-          <span>水果</span>
+          <Icon :name="item.tags.iconName"/>
+          <span>{{item.tags.text}}</span>
         </div>
         <span class="li-right">{{item.amount}}</span>
       </li>
     </ul>
+  </div>
+  <div v-else class="no-detail-list">
+    你啥也没有记~ <br>
+    我吐不出来呀~
+    <Icon name="no-record"/>
   </div>
 </template>
 
@@ -27,9 +32,6 @@
   export default class DetailList extends Vue {
     @Prop() dataSource!: {}[];
 
-    created(){
-      console.log(this.dataSource);
-    }
 
   }
 </script>
@@ -100,6 +102,25 @@
         }
       }
 
+    }
+  }
+
+  .no-detail-list {
+    position: absolute;
+    top: 0;
+    width: 96%;
+    height: 70vh;
+    background: $color-f;
+    box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    > :last-child {
+      font-size: 4em;
+      margin-top: .5em;
     }
   }
 </style>

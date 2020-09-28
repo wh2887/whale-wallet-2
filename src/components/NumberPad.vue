@@ -45,12 +45,12 @@
     @Prop(Number) value!: number;
     @Prop() icon!: string;
     output = this.value.toString();
-    result = 0
+    result = 0;
 
     @Watch('output')
-    onOutputChanged(){
-      this.$emit('update:value',this.result)
-  }
+    onOutputChanged() {
+      this.$emit('update:value', this.result);
+    }
 
     inputContent(event: MouseEvent) {
       const button = event.target as HTMLButtonElement;
@@ -86,11 +86,10 @@
       this.output += input;
     }
 
-
     done() {
       this.result = eval(this.output);
       this.output = '';
-      this.$emit('submit',this.result)
+      this.$emit('submit', this.result);
     }
 
     clear() {

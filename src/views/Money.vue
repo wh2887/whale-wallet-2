@@ -1,12 +1,14 @@
 <template>
   <div class="money-wrapper">
     <div class="top">
+
       <a-date-picker v-model="time" placeholder="Select Time" @change="onChange">
         <h3>
-          {{ time ? time : beautify()}}
+          {{ time ? time : beautify}}
           <Icon name="calendar"/>
         </h3>
       </a-date-picker>
+
       <SegmentControls :value.sync="record.type"/>
     </div>
     <div class="middle">
@@ -32,6 +34,7 @@
   import {Moment} from 'moment';
   import Icon from '@/components/Icon.vue';
   import dayjs from 'dayjs';
+  import clone from '@/lib/clone';
 
   Vue.component(DatePicker.name, DatePicker);
 
@@ -52,18 +55,20 @@
       this.record.createdAt = this.today;
     }
 
-    beautify(){
-      return dayjs(this.today).format('YYYY-MM-DD')
+
+    get beautify() {
+      return dayjs(this.today).format('YYYY-MM-DD');
     }
 
     onChange(date: Moment | string, dateString: string) {
-      this.time = new Date(dateString).toISOString()
+      this.time = new Date(dateString).toISOString();
       this.record.createdAt = this.time;
+      this.time = dateString;
     }
 
-    saveRecord() {
+    saveRecord(value: number) {
+      this.record.amount = value;
       this.$store.commit('createRecord', this.record);
-      console.log('保存一次记账！');
     }
   }
 </script>
