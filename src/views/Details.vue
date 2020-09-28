@@ -43,9 +43,10 @@
   import {Component} from 'vue-property-decorator';
   import SegmentControls from '@/components/SegmentControls.vue';
   import DetailList from '@/components/DetailList.vue';
+  import Icon from '@/components/Icon.vue';
 
   @Component({
-    components: {DetailList, SegmentControls}
+    components: {DetailList, SegmentControls, Icon}
   })
   export default class Details extends Vue {
     get recordList() {
