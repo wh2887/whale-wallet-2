@@ -56,7 +56,6 @@
       return dayjs(this.today).format('YYYY-MM-DD')
     }
 
-
     onChange(date: Moment | string, dateString: string) {
       this.time = new Date(dateString).toISOString()
       this.record.createdAt = this.time;

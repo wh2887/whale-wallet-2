@@ -59,14 +59,17 @@
     }
 
     created() {
-      console.log(this.recordList);
-      this.groupedList()
+      this.groupedList();
     }
 
     groupedList() {
       const {recordList} = this;
-      for(let i = 0;i< recordList.length;i++){
-        console.log(recordList[i].createdAt);
+      const hashTable: { [key: string]: RecordItem[] } = {};
+      for (let i = 0; i < recordList.length; i++) {
+        const [date, time] = recordList[i].createdAt!.split('T');
+        hashTable[date] = hashTable[date] || [];
+        hashTable[date].push(recordList[i]);  // 此时获得的 hashTable 为按日期分组的数据
+        return hashTable;
       }
     }
 
