@@ -44,6 +44,7 @@
   import SegmentControls from '@/components/SegmentControls.vue';
   import DetailList from '@/components/DetailList.vue';
   import Icon from '@/components/Icon.vue';
+  import clone from '@/lib/clone';
 
   @Component({
     components: {DetailList, SegmentControls, Icon}
@@ -59,6 +60,14 @@
 
     created() {
       console.log(this.recordList);
+      this.groupedList()
+    }
+
+    groupedList() {
+      const {recordList} = this;
+      for(let i = 0;i< recordList.length;i++){
+        console.log(recordList[i].createdAt);
+      }
     }
 
   }

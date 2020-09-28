@@ -3,7 +3,7 @@
     <div class="top">
       <a-date-picker v-model="time" placeholder="Select Time" @change="onChange">
         <h3>
-          {{ time ? time : today}}
+          {{ time ? time : showtime}}
           <Icon name="calendar"/>
         </h3>
       </a-date-picker>
@@ -41,7 +41,8 @@
   export default class Money extends Vue {
     record = defaultRecordList;
     time = '';
-    today = dayjs(new Date()).format('YYYY-MM-DD');
+    today = new Date().toISOString();
+    showtime = dayjs(this.today).format('YYYY-MM-DD');
 
     get recordList() {
       return this.$store.state.recordList as RecordItem[];
