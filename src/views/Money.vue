@@ -3,7 +3,7 @@
     <div class="top">
       <a-date-picker v-model="time" placeholder="Select Time" @change="onChange">
         <h3>
-          {{ time ? time : showtime}}
+          {{ time ? time : beautify()}}
           <Icon name="calendar"/>
         </h3>
       </a-date-picker>
@@ -42,7 +42,6 @@
     record = defaultRecordList;
     time = '';
     today = new Date().toISOString();
-    showtime = dayjs(this.today).format('YYYY-MM-DD');
 
     get recordList() {
       return this.$store.state.recordList as RecordItem[];
@@ -53,9 +52,13 @@
       this.record.createdAt = this.today;
     }
 
+    beautify(){
+      return dayjs(this.today).format('YYYY-MM-DD')
+    }
+
 
     onChange(date: Moment | string, dateString: string) {
-      this.time = dateString;
+      this.time = new Date(dateString).toISOString()
       this.record.createdAt = this.time;
     }
 
