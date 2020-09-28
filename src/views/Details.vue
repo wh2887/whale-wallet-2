@@ -28,7 +28,7 @@
       </div>
       <div class="receipt-wrapper">
         <div class="receipt">
-          <DetailList/>
+          <DetailList :data-source="groupedList()"/>
         </div>
       </div>
     </header>
@@ -44,7 +44,6 @@
   import SegmentControls from '@/components/SegmentControls.vue';
   import DetailList from '@/components/DetailList.vue';
   import Icon from '@/components/Icon.vue';
-  import clone from '@/lib/clone';
 
   @Component({
     components: {DetailList, SegmentControls, Icon}
@@ -64,13 +63,16 @@
 
     groupedList() {
       const {recordList} = this;
-      const hashTable: { [key: string]: RecordItem[] } = {};
+      type HashTableValue = { title: string; items: RecordItem[] }
+
+      const hashTable: { [key: string]: HashTableValue } = {};
+      console.log(recordList.length);
       for (let i = 0; i < recordList.length; i++) {
         const [date, time] = recordList[i].createdAt!.split('T');
-        hashTable[date] = hashTable[date] || [];
-        hashTable[date].push(recordList[i]);  // 此时获得的 hashTable 为按日期分组的数据
-        return hashTable;
+        hashTable[date] = hashTable[date] || {title: date, items: []};
+        hashTable[date].items.push(recordList[i]);  // 此时获得的 hashTable 为按日期分组的数据
       }
+      return hashTable;
     }
 
   }

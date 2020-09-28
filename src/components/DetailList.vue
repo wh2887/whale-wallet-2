@@ -1,105 +1,16 @@
 <template>
   <div class="detailList">
-    <ul>
+    <ul v-for="(group,index) in dataSource" :key="index">
       <li>
-        <span>9月12日</span>
+        <span>{{group.title}}</span>
         <span>支: 156.00</span>
       </li>
-      <li class="daily-record">
+      <li class="daily-record" v-for="item in group.items" :key="item.id">
         <div class="li-left">
           <Icon name="shuiguo"/>
           <span>水果</span>
         </div>
-        <span class="li-right">-22.00</span>
-      </li>
-      <li class="daily-record">
-        <div class="li-left">
-          <Icon name="shuiguo"/>
-          <span>水果</span>
-        </div>
-        <span class="li-right">-22.00</span>
-      </li>
-      <li class="daily-record">
-        <div class="li-left">
-          <Icon name="shuiguo"/>
-          <span>水果</span>
-        </div>
-        <span class="li-right">-22.00</span>
-      </li>
-      <li class="daily-record">
-        <div class="li-left">
-          <Icon name="shuiguo"/>
-          <span>水果</span>
-        </div>
-        <span class="li-right">-22.00</span>
-      </li>
-    </ul>
-    <ul>
-      <li>
-        <span>9月12日</span>
-        <span>支: 156.00</span>
-      </li>
-      <li class="daily-record">
-        <div class="li-left">
-          <Icon name="shuiguo"/>
-          <span>水果</span>
-        </div>
-        <span class="li-right">-22.00</span>
-      </li>
-      <li class="daily-record">
-        <div class="li-left">
-          <Icon name="shuiguo"/>
-          <span>水果</span>
-        </div>
-        <span class="li-right">-22.00</span>
-      </li>
-      <li class="daily-record">
-        <div class="li-left">
-          <Icon name="shuiguo"/>
-          <span>水果</span>
-        </div>
-        <span class="li-right">-22.00</span>
-      </li>
-      <li class="daily-record">
-        <div class="li-left">
-          <Icon name="shuiguo"/>
-          <span>水果</span>
-        </div>
-        <span class="li-right">-22.00</span>
-      </li>
-    </ul>
-    <ul>
-      <li>
-        <span>9月12日</span>
-        <span>支: 156.00</span>
-      </li>
-      <li class="daily-record">
-        <div class="li-left">
-          <Icon name="shuiguo"/>
-          <span>水果</span>
-        </div>
-        <span class="li-right">-22.00</span>
-      </li>
-      <li class="daily-record">
-        <div class="li-left">
-          <Icon name="shuiguo"/>
-          <span>水果</span>
-        </div>
-        <span class="li-right">-22.00</span>
-      </li>
-      <li class="daily-record">
-        <div class="li-left">
-          <Icon name="shuiguo"/>
-          <span>水果</span>
-        </div>
-        <span class="li-right">-22.00</span>
-      </li>
-      <li class="daily-record">
-        <div class="li-left">
-          <Icon name="shuiguo"/>
-          <span>水果</span>
-        </div>
-        <span class="li-right">-22.00</span>
+        <span class="li-right">{{item.amount}}</span>
       </li>
     </ul>
   </div>
@@ -107,13 +18,18 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
   import Icon from '@/components/Icon.vue';
 
   @Component({
     components: {Icon},
   })
   export default class DetailList extends Vue {
+    @Prop() dataSource!: {}[];
+
+    created(){
+      console.log(this.dataSource);
+    }
 
   }
 </script>
