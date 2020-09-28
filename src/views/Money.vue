@@ -43,7 +43,12 @@
     time = '';
     today = dayjs(new Date()).format('YYYY-MM-DD');
 
+    get recordList() {
+      return this.$store.state.recordList as RecordItem[];
+    }
+
     created() {
+      this.$store.commit('fetchRecords');
       this.record.createdAt = this.today;
     }
 

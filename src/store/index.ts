@@ -7,11 +7,15 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     recordList: [] as RecordItem[]
-  },
+  } as RootState,
   mutations: {
+    fetchRecords(state) {
+      state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
+    },
     createRecord(state, record: RecordItem) {
-      const _record = clone(record);
-      state.recordList.push(_record);
+      const record2 = clone(record);
+      console.log('xxx:', state.recordList);
+      state.recordList.push(record2);
       store.commit('saveRecords');
     },
     saveRecords(state) {

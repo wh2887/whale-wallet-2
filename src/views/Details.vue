@@ -152,6 +152,10 @@
   })
   export default class Details extends Vue {
 
+    beforeCreate() {
+      this.$store.commit('fetchRecords');
+    }
+
   }
 </script>
 
