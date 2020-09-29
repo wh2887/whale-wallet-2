@@ -17,16 +17,15 @@ const store = new Vuex.Store({
   } as RootState,
 
   mutations: {
-
     initTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
       if (!state.tagList || state.tagList.length === 0) {
-        store.commit('createTag', {id: 201, type: '-', iconName: 'other', text: '其他'});
+        store.commit('createTag', {id: 200, type: '-', iconName: 'other', text: '其他'});
         store.commit('createTag', {id: 201, type: '+', iconName: 'hongbao', text: '红包'});
       }
     },
     findTag(state, id: number) {
-      state.currentTag = state.tagList.filter(item => item.id === id)[0];
+      state.currentTag = state.currentTagDB!.filter(item => item.id === id)[0];
     },
     createTag(state, obj: fuck) {
       obj && (obj.id = createId());
@@ -71,6 +70,5 @@ const store = new Vuex.Store({
   actions: {},
   modules: {}
 });
-
 
 export default store;
