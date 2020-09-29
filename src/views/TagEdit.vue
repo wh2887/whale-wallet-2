@@ -38,17 +38,6 @@
     iconName = '';
     tagId = 0;
     // iconTable = [
-    //   {id: 1, type: '-', iconName: 'shuiguo', text: '水果'},
-    //   {id: 2, type: '-', iconName: 'shuidianmei', text: '水电'},
-    //   {id: 3, type: '-', iconName: 'xinyongkahuankuan', text: '信用卡还款'},
-    //   {id: 4, type: '-', iconName: 'fangzu', text: '房租'},
-    //   {id: 5, type: '-', iconName: 'lifa', text: '理发'},
-    //   {id: 6, type: '+', iconName: 'huafei', text: '话费'},
-    //   {id: 7, type: '-', iconName: 'fushi', text: '服饰'},
-    //   {id: 8, type: '-', iconName: 'canyinye', text: '餐饮'},
-    //   {id: 9, type: '-', iconName: 'yule', text: '娱乐'},
-    //   {id: 10, type: '-', iconName: 'jiaotong', text: '交通'},
-    //   {id: 11, type: '-', iconName: 'youxi', text: '水游戏'}
     // ];
 
     beforeCreate() {
