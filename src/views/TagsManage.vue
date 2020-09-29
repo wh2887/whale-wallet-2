@@ -62,7 +62,9 @@
     }
 
     addTag() {
-      this.$router.push({path: `${this.$route.params.recordType}/` + 'tagedit'});
+      // TODO
+      const tagId = 999;  //  这是一个用于编辑页判断是否带 id 的标记！
+      this.$router.push({path: `${this.$route.params.recordType}/` + 'tagedit' + `/${tagId}`});
     }
   }
 </script>

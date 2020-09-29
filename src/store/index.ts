@@ -19,14 +19,13 @@ const store = new Vuex.Store({
   mutations: {
     initTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
-      if (!state.tagList || state.tagList.length === 0) {
-        store.commit('createTag', {id: 200, type: '-', iconName: 'other', text: '其他'});
-        store.commit('createTag', {id: 201, type: '+', iconName: 'hongbao', text: '红包'});
-      }
+      // if (!state.tagList || state.tagList.length === 0) {
+      //   store.commit('createTag', {id: 200, type: '-', iconName: 'other', text: '其他'});
+      //   store.commit('createTag', {id: 201, type: '+', iconName: 'hongbao', text: '红包'});
+      // }
     },
-    findTag(state, payload:{id: number,recordType: string}) {
-      store.commit('selectTagsDataBase',payload.recordType)
-      console.log('store中的currentDB：',state.currentTagDB);
+    findTag(state, payload: { id: number, recordType: string }) {
+      store.commit('selectTagsDataBase', payload.recordType);
       state.currentTag = (state.currentTagDB && state.currentTagDB.filter(item => item.id === payload.id)[0]);
     },
     createTag(state, obj: fuck) {
@@ -37,7 +36,7 @@ const store = new Vuex.Store({
       } else if (iconTexts.indexOf(obj.text) >= 0) {
         window.alert('标签名称重复，请重新选择！');
       } else {
-        obj && (obj.id = createId());
+        // obj && (obj.id = createId());
         state.tagList && state.tagList.push(obj);
         store.commit('saveTags');
       }

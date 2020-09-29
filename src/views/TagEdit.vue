@@ -34,6 +34,7 @@
     components: {Icon}
   })
   export default class TagEdit extends Vue {
+    tag!: fuck;
     routerId!: number;
     routerRecordType = '';
     iconName = '';
@@ -45,7 +46,14 @@
       this.routerRecordType = this.$route.params.recordType;
       this.$store.commit('initTags');
       this.$store.commit('selectTagsDataBase', this.routerRecordType);
-      console.log(this.routerId);
+      if (this.routerId !== 999) {
+        this.$store.commit('findTag', {id: this.routerId, recordType: this.routerRecordType});
+        this.tag = this.$store.state.currentTag;
+        this.iconName = this.tag.iconName;
+        this.iconText = this.tag.text;
+      } else {
+        console.log('进入到了新增页面！');
+      }
     }
 
     get currentTagDB() {
