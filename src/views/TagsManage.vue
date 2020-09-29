@@ -10,10 +10,9 @@
       <SegmentControls :value.sync="$route.params.recordType" @updateSegmentType="onTypeChanged"/>
     </div>
 
-
     <main>
       <ol>
-        <li @click="addTag" v-for="icon in currentTagList" :key="icon.id">
+        <li @click="updateTag" v-for="icon in currentTagList" :key="icon.id">
           <div class="li-left">
             <Icon :name="icon.iconName"/>
             <span>{{icon.text}}</span>
@@ -49,6 +48,10 @@
     onTypeChanged(type: string) {
       this.segmentType = type;
       this.$store.commit('filtrateTagList', this.segmentType);
+    }
+
+    updateTag() {
+      console.log('x');
     }
 
     addTag() {

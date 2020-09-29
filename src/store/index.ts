@@ -28,9 +28,18 @@ const store = new Vuex.Store({
       state.currentTag = state.currentTagDB!.filter(item => item.id === id)[0];
     },
     createTag(state, obj: fuck) {
-      obj && (obj.id = createId());
-      state.tagList && state.tagList.push(obj);
-      store.commit('saveTags');
+      // obj 有的 信息 id / type / iconName / text
+      const iconTexts = state.tagList.map(item => item.text);
+      const iconNames = state.tagList.map(item => item.iconName);
+      if (iconNames.indexOf(obj.iconName) >= 0) {
+        window.alert('标签图标重复，请重新选择！');
+      } else if (iconTexts.indexOf(obj.text) >= 0) {
+        window.alert('标签名称重复，请重新选择！');
+      }else {
+        obj && (obj.id = createId());
+        state.tagList && state.tagList.push(obj);
+        store.commit('saveTags');
+      }
     },
     saveTags(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));

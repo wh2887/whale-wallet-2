@@ -9,7 +9,7 @@
       <div class="input-wrapper">
         <Icon :name="iconName"/>
         <label>
-          <input type="text" value="" placeholder="输入字符不得超过 3 个">
+          <input type="text" v-model="iconText" placeholder="输入字符不得超过 3 个">
         </label>
       </div>
     </main>
@@ -37,6 +37,7 @@
     routerRecordType = '';
     iconName = '';
     tagId = 0;
+    iconText = '';
 
     created() {
       this.routerRecordType = this.$route.params.recordType;
@@ -52,6 +53,7 @@
     saveTag() {
       this.$store.commit('findTag', this.tagId);
       const tagItem = this.$store.state.currentTag;
+      tagItem.text = this.iconText;
       this.$store.commit('createTag', tagItem);
     }
 
