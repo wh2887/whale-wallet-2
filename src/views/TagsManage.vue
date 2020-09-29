@@ -57,7 +57,7 @@
       // 需要的信息 修改的当前的 Tag
       this.$store.commit('findTag', {id: tagId, recordType: recordType});
       const tagItem = this.$store.state.currentTag;
-
+      console.log(tagItem);
       this.$router.push({path: `${this.$route.params.recordType}/` + 'tagedit' + `/${tagId}`});
     }
 

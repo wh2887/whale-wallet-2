@@ -56,16 +56,34 @@
       }
     }
 
+    // updated() {
+    //   console.log('更新的图标ID：', this.tagId);
+    //   console.log('更新的图标类型：', this.routerRecordType);
+    //   console.log('更新的图标：', this.iconName);
+    //   console.log('更新的图表描述', this.iconText);
+    // }
+
     get currentTagDB() {
       return this.$store.state.currentTagDB;
     }
 
-
     saveTag() {
-      this.$store.commit('findTag', {id: this.tagId, recordType: this.routerRecordType});
-      const tagItem = this.$store.state.currentTag;
-      tagItem.text = this.iconText;
-      this.$store.commit('createTag', tagItem);
+      if (this.routerId !== 999) {
+        console.log('我是需要更新函数的地方！');
+        // 更新Tag 信息 ： 1. 图标 iconName 2. 文本 text  ==> 同样需要得到 当前的那个 tag  (需要双向绑定的数据：实时更新的！)
+        const tag2: fuck = {
+          id: this.tagId,
+          type: this.routerRecordType,
+          iconName: this.iconName,
+          text: this.iconText
+        };
+        this.$store.commit('updateTag', tag2);
+      } else {
+        this.$store.commit('findTag', {id: this.tagId, recordType: this.routerRecordType});
+        const tagItem = this.$store.state.currentTag;
+        tagItem.text = this.iconText;
+        this.$store.commit('createTag', tagItem);
+      }
       this.$router.back();
     }
 
