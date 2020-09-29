@@ -16,8 +16,6 @@
       <NumberPad :value.sync="record.amount" :icon="record.tags.iconName" @submit="saveRecord"/>
     </div>
   </div>
-
-
 </template>
 
 <script lang="ts">
@@ -51,7 +49,6 @@
       this.$store.commit('fetchRecords');
       this.record.createdAt = this.today;
     }
-
 
     get beautify() {
       return dayjs(this.today).format('YYYY-MM-DD');

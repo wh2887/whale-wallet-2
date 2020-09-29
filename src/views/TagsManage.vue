@@ -1,13 +1,16 @@
 <template>
   <div class="tags-manage-wrapper">
+    <header>
+      <Icon name="back" @click.native="$router.go(-1)"/>
+      <span>分类管理</span>
+      <Icon name="add" @click.native="addTag"/>
+    </header>
+
     <div class="top">
-      <div class="top-buttons">
-        <Icon name="back" @click.native="$router.go(-1)"/>
-        <Icon name="add" @click.native="addTag"/>
-      </div>
-      <h3>分类管理</h3>
       <SegmentControls :value.sync="$route.params.recordType" @updateSegmentType="onTypeChanged"/>
     </div>
+
+
     <main>
       <ol>
         <li @click="addTag" v-for="icon in currentTagList" :key="icon.id">
@@ -63,18 +66,23 @@
     flex-direction: column;
     align-items: center;
 
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .2em .5em;
+      background: $color-highlight-thin;
+
+      > :nth-child(2) {
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+    }
+
     .top {
       width: 100vw; background: $color-highlight-thin;
       padding-top: .5em;
-      height: 20vh;
-
-      .top-buttons {
-        padding: 0 .5em;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 1.5em;
-      }
     }
 
     main {
