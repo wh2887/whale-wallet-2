@@ -32,13 +32,17 @@
     components: {SegmentControls, Icon}
   })
   export default class TagsManage extends Vue {
+    created() {
+      this.$store.commit('initTags');
+      console.log(this.tagList);
+    }
+
+    get tagList() {
+      return this.$store.state.tagList;
+    }
 
     addTag() {
       this.$router.push({path: `${this.$route.params.recordType}/` + 'tagedit'});
-    }
-
-    created() {
-      const obj = this.$route.params;
     }
   }
 </script>

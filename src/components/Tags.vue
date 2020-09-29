@@ -22,8 +22,8 @@
   @Component({
     components: {Icon},
   })
-  export default class Tabs extends Vue {
-    @Prop() value!: Tag;
+  export default class Tags extends Vue {
+    @Prop() value!: fuck;
     @Prop(String) recordType!: string;
     iconName = this.value.iconName;
     iconTable = [
@@ -45,8 +45,8 @@
     }
 
     getCurrentTagList(type: string) {
-      const incomeTagList: Tag[] = [];
-      const payTagList: Tag[] = [];
+      const incomeTagList: fuck[] = [];
+      const payTagList: fuck[] = [];
       this.iconTable.forEach(item => {
         if (item.type === '+') {
           incomeTagList.push(item);
@@ -61,7 +61,7 @@
       }
     }
 
-    selectIcon(icon: Tag) {
+    selectIcon(icon: fuck) {
       this.iconName = icon.iconName;
       this.$emit('update:value', icon);
       return;
