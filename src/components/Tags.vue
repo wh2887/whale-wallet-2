@@ -1,10 +1,10 @@
 <template>
   <div class="tabs-wrapper">
     <ul>
-      <li :class="{'selected':iconName === icon.iconName}" v-for="icon in getCurrentTagList(recordType)" :key="icon.id"
-          @click="selectIcon(icon)">
-        <Icon :name="icon.iconName"/>
-      </li>
+<!--      <li :class="{'selected':iconName === icon.iconName}" v-for="icon in getCurrentTagList(recordType)" :key="icon.id"-->
+<!--          @click="selectIcon(icon)">-->
+<!--        <Icon :name="icon.iconName"/>-->
+<!--      </li>-->
       <li @click="manageTags" class="manage">
         <Icon :name=" 'add'"/>
       </li>
@@ -74,7 +74,6 @@
   @import "~@/assets/styles/helper.scss";
 
   .tabs-wrapper {
-    @extend %displayAuto;
 
     ul {
       display: flex;

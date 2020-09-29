@@ -10,7 +10,7 @@
       <SegmentControls :value.sync="record.type"/>
     </div>
     <div class="middle">
-      <Tabs :value.sync="record.tags" :record-type="record.type"/>
+      <Tags :value.sync="record.tags" :record-type="record.type"/>
     </div>
     <div class="bottom">
       <NumberPad :value.sync="record.amount" :icon="record.tags.iconName" @submit="saveRecord"/>
@@ -24,7 +24,7 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import SegmentControls from '@/components/SegmentControls.vue';
-  import Tabs from '@/components/Tabs.vue';
+  import Tags from '@/components/Tags.vue';
   import NumberPad from '@/components/NumberPad.vue';
   import defaultRecordList from '@/constants/defaultRecordList';
   import {DatePicker} from 'ant-design-vue';
@@ -36,7 +36,7 @@
   Vue.component(DatePicker.name, DatePicker);
 
   @Component({
-    components: {Icon, NumberPad, Tabs, SegmentControls}
+    components: {Icon, NumberPad, Tags, SegmentControls}
   })
   export default class Money extends Vue {
     record = defaultRecordList;
@@ -81,12 +81,11 @@
     }
 
     .middle {
-      width: $width; height: 20vh; border-radius: $bg-radius; margin-top: $top-margin/2; overflow-y: auto;
-
+      background: $color-f;
+      width: $width; height: 20vh; border-radius: $bg-radius; margin-top: $top-margin/2;
+      overflow-y: auto;
       &::-webkit-scrollbar { width: 0 !important }
-
       & { overflow: -moz-scrollbars-none; }
-
       & { -ms-overflow-style: none; }
     }
 
