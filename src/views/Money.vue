@@ -84,8 +84,11 @@
       background: $color-f;
       width: $width; height: 20vh; border-radius: $bg-radius; margin-top: $top-margin/2;
       overflow-y: auto;
+
       &::-webkit-scrollbar { width: 0 !important }
+
       & { overflow: -moz-scrollbars-none; }
+
       & { -ms-overflow-style: none; }
     }
 
