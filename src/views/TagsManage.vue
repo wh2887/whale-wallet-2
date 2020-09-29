@@ -6,14 +6,14 @@
         <Icon name="add" @click.native="addTag"/>
       </div>
       <h3>分类管理</h3>
-      <SegmentControls :value.sync="$route.params.recordType"/>
+      <SegmentControls :value.sync="$route.params.recordType" @updateSegmentType="onTypeChanged"/>
     </div>
     <main>
       <ol>
-        <li @click="addTag">
+        <li @click="addTag" v-for="icon in currentTagList" :key="icon.id">
           <div class="li-left">
-            <Icon name="shuiguo"/>
-            <span>水果</span>
+            <Icon :name="icon.iconName"/>
+            <span>{{icon.text}}</span>
           </div>
           <Icon name="forward"/>
         </li>
@@ -32,12 +32,20 @@
     components: {SegmentControls, Icon}
   })
   export default class TagsManage extends Vue {
+    segmentType!: string;
+
     created() {
       this.$store.commit('initTags');
+      this.$store.commit('filtrateTagList', this.$route.params.recordType);
     }
 
-    get tagList() {
-      return this.$store.state.tagList;
+    get currentTagList() {
+      return this.$store.state.currentTagList;
+    }
+
+    onTypeChanged(type: string) {
+      this.segmentType = type;
+      this.$store.commit('filtrateTagList', this.segmentType);
     }
 
     addTag() {

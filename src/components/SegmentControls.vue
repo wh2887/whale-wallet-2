@@ -20,6 +20,7 @@
     @Watch('type')
     onTypeChanged() {
       this.$emit('update:value',this.type);
+      this.$emit('updateSegmentType',this.type)
     }
 
     selectType(value: string) {

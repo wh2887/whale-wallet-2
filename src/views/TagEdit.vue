@@ -44,10 +44,6 @@
       this.$store.commit('selectTagsDataBase', this.routerRecordType);
     }
 
-    get tagList() {
-      return this.$store.state.tagList;
-    }
-
     get currentTagDB() {
       return this.$store.state.currentTagDB;
     }

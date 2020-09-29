@@ -12,7 +12,8 @@ const store = new Vuex.Store({
     recordList: [] as RecordItem[],
     tagList: [] as fuck[],
     currentTag: undefined,
-    currentTagDB: undefined
+    currentTagDB: undefined,
+    currentTagList: [] as fuck[]
   } as RootState,
 
   mutations: {
@@ -20,7 +21,7 @@ const store = new Vuex.Store({
     initTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
       if (!state.tagList || state.tagList.length === 0) {
-        store.commit('createTag', {id: 201, type: '+', iconName: 'other', text: '其他'});
+        store.commit('createTag', {id: 201, type: '-', iconName: 'other', text: '其他'});
         store.commit('createTag', {id: 201, type: '+', iconName: 'hongbao', text: '红包'});
       }
     },
@@ -42,8 +43,19 @@ const store = new Vuex.Store({
         state.currentTagDB = incomeTagList;
       } else {
         window.alert('recordType 属于非法值，只能是 \'-\' 或 \'+\' 其中之一');
+        // TODO
+        // 弹出提示框， 应该帮忙跳转到 前一页，而不能在当前页！
       }
     },
+    filtrateTagList(state, recordType: string) {
+      state.currentTagList = [];  // 删除之前计算过的 List
+      for (let i = 0; i < state.tagList.length; i++) {
+        if (state.tagList[i].type === recordType) {
+          state.currentTagList && state.currentTagList.push(state.tagList[i]);
+        }
+      }
+    },
+
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     },
