@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import clone from '@/lib/clone';
 import createId from '@/lib/createId';
+import payTagList from '@/dataBase/payTagList';
+import incomeTagList from '@/dataBase/incomeTagList';
 
 Vue.use(Vuex);
 
@@ -9,7 +11,8 @@ const store = new Vuex.Store({
   state: {
     recordList: [] as RecordItem[],
     tagList: [] as fuck[],
-    currentTag: undefined
+    currentTag: undefined,
+    currentTagDB: undefined
   } as RootState,
 
   mutations: {
@@ -32,7 +35,15 @@ const store = new Vuex.Store({
     saveTags(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
     },
-
+    selectTagsDataBase(state, recordType: string) {
+      if (recordType === '-') {
+        state.currentTagDB = payTagList;
+      } else if (recordType === '+') {
+        state.currentTagDB = incomeTagList;
+      } else {
+        window.alert('recordType 属于非法值，只能是 \'-\' 或 \'+\' 其中之一');
+      }
+    },
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     },

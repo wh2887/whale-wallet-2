@@ -15,7 +15,7 @@
     </main>
     <footer>
       <ol>
-        <li @click="selectedIcon(icon)" v-for="icon in getList()" :key="icon.id"
+        <li @click="selectedIcon(icon)" v-for="icon in currentTagDB" :key="icon.id"
             :class="{'selected':tagId === icon.id}"
         >
           <Icon :name="icon.iconName"/>
@@ -29,8 +29,6 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import Icon from '@/components/Icon.vue';
-  import incomeTagList from '@/dataBase/incomeTagList';
-  import payTagList from '@/dataBase/payTagList';
 
   @Component({
     components: {Icon}
@@ -40,30 +38,20 @@
     iconName = '';
     tagId = 0;
 
-    incomeTagList = incomeTagList;
-    payTagList = payTagList;
-
-    getList() {
-      if (this.routerRecordType === '-') {
-        return this.payTagList;
-      } else if (this.routerRecordType === '+') {
-        return this.incomeTagList;
-      } else {
-        window.alert('recordType非法！');
-      }
-    }
-
-    beforeCreate() {
+    created() {
+      this.routerRecordType = this.$route.params.recordType;
       this.$store.commit('initTags');
+      this.$store.commit('selectTagsDataBase', this.routerRecordType);
     }
 
     get tagList() {
       return this.$store.state.tagList;
     }
 
-    created() {
-      this.routerRecordType = this.$route.params.recordType;
+    get currentTagDB() {
+      return this.$store.state.currentTagDB;
     }
+
 
     saveTag() {
       this.$store.commit('findTag', this.tagId);
