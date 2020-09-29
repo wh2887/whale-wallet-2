@@ -34,7 +34,6 @@
   export default class TagsManage extends Vue {
     created() {
       this.$store.commit('initTags');
-      console.log(this.tagList);
     }
 
     get tagList() {
