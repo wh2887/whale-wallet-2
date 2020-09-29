@@ -34,15 +34,18 @@
     components: {Icon}
   })
   export default class TagEdit extends Vue {
+    routerId!: number;
     routerRecordType = '';
     iconName = '';
     tagId = 0;
     iconText = '';
 
     created() {
+      this.routerId = parseInt(this.$route.params.id);
       this.routerRecordType = this.$route.params.recordType;
       this.$store.commit('initTags');
       this.$store.commit('selectTagsDataBase', this.routerRecordType);
+      console.log(this.routerId);
     }
 
     get currentTagDB() {
@@ -51,7 +54,7 @@
 
 
     saveTag() {
-      this.$store.commit('findTag', this.tagId);
+      this.$store.commit('findTag', {id: this.tagId, recordType: this.routerRecordType});
       const tagItem = this.$store.state.currentTag;
       tagItem.text = this.iconText;
       this.$store.commit('createTag', tagItem);

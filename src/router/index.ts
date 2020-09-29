@@ -35,6 +35,10 @@ const routes: Array<RouteConfig> = [
     component: TagsManage,
   },
   {
+    path: '/tagsmanage/:recordType/tagedit/:id',
+    component: TagEdit
+  },
+  {
     path: '/tagsmanage/:recordType/tagedit',
     component: TagEdit
   },

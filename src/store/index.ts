@@ -24,8 +24,10 @@ const store = new Vuex.Store({
         store.commit('createTag', {id: 201, type: '+', iconName: 'hongbao', text: '红包'});
       }
     },
-    findTag(state, id: number) {
-      state.currentTag = state.currentTagDB!.filter(item => item.id === id)[0];
+    findTag(state, payload:{id: number,recordType: string}) {
+      store.commit('selectTagsDataBase',payload.recordType)
+      console.log('store中的currentDB：',state.currentTagDB);
+      state.currentTag = (state.currentTagDB && state.currentTagDB.filter(item => item.id === payload.id)[0]);
     },
     createTag(state, obj: fuck) {
       const iconTexts = state.tagList.map(item => item.text);
@@ -34,7 +36,7 @@ const store = new Vuex.Store({
         window.alert('标签图标重复，请重新选择！');
       } else if (iconTexts.indexOf(obj.text) >= 0) {
         window.alert('标签名称重复，请重新选择！');
-      }else {
+      } else {
         obj && (obj.id = createId());
         state.tagList && state.tagList.push(obj);
         store.commit('saveTags');

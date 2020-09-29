@@ -12,7 +12,7 @@
 
     <main>
       <ol>
-        <li @click="updateTag" v-for="icon in currentTagList" :key="icon.id">
+        <li @click="jumpToUpdateTag(icon)" v-for="icon in currentTagList" :key="icon.id">
           <div class="li-left">
             <Icon :name="icon.iconName"/>
             <span>{{icon.text}}</span>
@@ -50,8 +50,15 @@
       this.$store.commit('filtrateTagList', this.segmentType);
     }
 
-    updateTag() {
-      console.log('x');
+    jumpToUpdateTag(icon: fuck) {
+      const tagId = icon.id;
+      const recordType = this.$route.params.recordType;
+      // 修改 Tag
+      // 需要的信息 修改的当前的 Tag
+      this.$store.commit('findTag', {id: tagId, recordType: recordType});
+      const tagItem = this.$store.state.currentTag;
+
+      this.$router.push({path: `${this.$route.params.recordType}/` + 'tagedit' + `/${tagId}`});
     }
 
     addTag() {
