@@ -28,7 +28,6 @@ const store = new Vuex.Store({
       state.currentTag = state.currentTagDB!.filter(item => item.id === id)[0];
     },
     createTag(state, obj: fuck) {
-      // obj 有的 信息 id / type / iconName / text
       const iconTexts = state.tagList.map(item => item.text);
       const iconNames = state.tagList.map(item => item.iconName);
       if (iconNames.indexOf(obj.iconName) >= 0) {

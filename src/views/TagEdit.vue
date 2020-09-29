@@ -55,6 +55,7 @@
       const tagItem = this.$store.state.currentTag;
       tagItem.text = this.iconText;
       this.$store.commit('createTag', tagItem);
+      this.$router.back();
     }
 
     selectedIcon(value: fuck) {
