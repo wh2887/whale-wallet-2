@@ -20,7 +20,15 @@ const store = new Vuex.Store({
       }
     },
     createTag(state, tag: myTag) {
+      const {id, type, iconName, text} = tag;
+      // 需要检查重复等！
+      state.tagList && state.tagList.push(tag);
+      store.commit('saveTag');
     },
+    saveTag(state) {
+      window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
+    },
+
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     },

@@ -3,20 +3,20 @@
     <header>
       <Icon name="back" @click.native="$router.go(-1)"/>
       <span>编辑分类</span>
-      <span @click="saveTag">保存</span>
+      <span @click="createOneTag">保存</span>
     </header>
     <main>
       <div class="input-wrapper">
         <Icon :name="iconName"/>
         <label>
-          <input type="text" v-model="iconText" placeholder="输入字符不得超过 3 个">
+          <input type="text" v-model="text" placeholder="输入字符不得超过 3 个">
         </label>
       </div>
     </main>
     <footer>
       <ol>
         <li @click="selectedIcon(icon)" v-for="icon in totalTagList" :key="icon.id"
-            :class="{'selected':tagId === icon.id}"
+            :class="{'selected': tagId === icon.id}"
         >
           <Icon :name="icon.iconName"/>
         </li>
@@ -27,31 +27,59 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
+  import {Component} from 'vue-property-decorator';
   import Icon from '@/components/Icon.vue';
   import tagListDB from '@/dataBase/tagListDB';
+  import defaultPayTag from '@/constants/defaultPayTag';
+  import defaultIncomeTag from '@/constants/defaultIncomeTag';
 
   @Component({
     components: {Icon}
   })
   export default class TagAdd extends Vue {
     type!: string;
+    // TODO
+    // 这两个默认值有点问题？
+    tagId = 0;
+    iconName = '';
+    text = '';
+
     totalTagList: myTag[] = [];
 
     getCurrentTagList(type: string) {
       if (type === '-') {
         this.totalTagList = tagListDB.filter(item => item.type === '-');
-      } else {
+        this.iconName = defaultPayTag.iconName;
+        this.tagId = defaultPayTag.id;
+      } else if (type === '+') {
         this.totalTagList = tagListDB.filter(item => item.type === '+');
+        this.iconName = defaultIncomeTag.iconName;
+        this.tagId = defaultIncomeTag.id;
       }
       return;
     }
+
+    selectedIcon(tag: myTag) {
+      this.tagId = tag.id;
+      this.iconName = tag.iconName;
+    }
+
     created() {
-      // 页面出现的时候就需要初始化到 taglist  // 这个 tagList 应该是能提供的所有图标（按 type 输出）！
-      // 那不就是 tagListDB 吗？
       // this.$store.commit('initTag');
       this.type = this.$route.params.type;
       this.getCurrentTagList(this.type);
+    }
+
+    updated() {
+      console.log('ID:', this.tagId);
+      console.log(this.text);
+    }
+
+    createOneTag() {
+      const {type, iconName, text} = this;
+      const tag: myTag = {id: this.tagId, type, iconName, text};
+      this.$store.commit('createTag', tag);
+      console.log('保存');
     }
 
 
