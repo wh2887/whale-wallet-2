@@ -11,6 +11,17 @@ const store = new Vuex.Store({
   } as RootState,
 
   mutations: {
+    initTag(state) {
+      state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+      if (!state.tagList || state.tagList.length === 0) {
+        // 如果没有 标签，那么需要我给你们创造初始化的标签！
+        // TODO
+        // store.commit('createTag',{id: ,type: ,iconName: ,text: ,})
+      }
+    },
+    createTag(state, tag: myTag) {
+
+    },
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     },

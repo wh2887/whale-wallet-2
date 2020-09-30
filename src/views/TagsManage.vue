@@ -46,8 +46,8 @@
 
     addTag() {
       // TODO
-      const tagId = 999;  //  这是一个用于编辑页判断是否带 id 的标记！
-      this.$router.push({path: `${this.$route.params.recordType}/` + 'tagedit' + `/${tagId}`});
+      // 跳转之前需要的信息 ： 仅仅是 ！！ segmentControls 组件的 type响应。
+      this.$router.push({path: '/tagsmanage/tagAdd'});
     }
   }
 </script>

@@ -6,6 +6,7 @@ import Money from '@/views/Money.vue';
 import More from '@/views/More.vue';
 import TagsManage from '@/views/TagsManage.vue';
 import TagEdit from '@/views/TagEdit.vue';
+import TagAdd from '@/views/TagAdd.vue';
 
 Vue.use(VueRouter);
 
@@ -30,16 +31,20 @@ const routes: Array<RouteConfig> = [
     component: Money
   },
   {
+    path: '/tagsmanage',
+    component: TagsManage,
+  },
+  {
+    path: '/tagsmanage/tagAdd',
+    component: TagAdd
+  },
+  {
     path: '/tagsmanage/:recordType',
     name: 'tagsmanage',
     component: TagsManage,
   },
   {
-    path: '/tagsmanage/:recordType/tagedit/:id',
-    component: TagEdit
-  },
-  {
-    path: '/tagsmanage/:recordType/tagedit/:noId',
+    path: '/tagsmanage/:recordType/tagedit',
     component: TagEdit
   },
   {
