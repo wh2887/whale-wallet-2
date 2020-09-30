@@ -36,28 +36,11 @@
   export default class TagsManage extends Vue {
     segmentType!: string;
 
-    created() {
-      this.$store.commit('initTags');
-      this.$store.commit('filtrateTagList', this.$route.params.recordType);
-    }
-
-    get currentTagList() {
-      return this.$store.state.currentTagList;
-    }
-
-    onTypeChanged(type: string) {
-      this.segmentType = type;
-      this.$store.commit('filtrateTagList', this.segmentType);
-    }
-
     jumpToUpdateTag(icon: myTag) {
       const tagId = icon.id;
       const recordType = this.$route.params.recordType;
       // 修改 Tag
       // 需要的信息 修改的当前的 Tag
-      this.$store.commit('findTag', {id: tagId, recordType: recordType});
-      const tagItem = this.$store.state.currentTag;
-      // console.log(tagItem);
       this.$router.push({path: `${this.$route.params.recordType}/` + 'tagedit' + `/${tagId}`});
     }
 

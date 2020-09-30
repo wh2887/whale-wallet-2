@@ -27,20 +27,6 @@
     @Prop(String) recordType!: string;
     iconName = this.value.iconName;
 
-    @Watch('recordType')
-    onRecordTypeChanged() {
-      this.$store.commit('filtrateTagList', this.recordType);
-    }
-
-    created() {
-      this.$store.commit('initTags');
-      this.$store.commit('filtrateTagList', this.recordType);
-    }
-
-    get currentTagList() {
-      return this.$store.state.currentTagList;
-    }
-
     manageTags() {
       this.$router.push({path: '/tagsmanage/' + `${this.recordType}`});
     }
