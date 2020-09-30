@@ -66,7 +66,7 @@
 
     created() {
       this.$store.commit('initTag');
-      this.type = this.$route.params.type;
+      this.type = this.$route.params.managetype;
       this.getCurrentTagList(this.type);
     }
 

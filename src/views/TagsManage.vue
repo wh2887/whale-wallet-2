@@ -6,11 +6,11 @@
       <Icon name="add" @click.native="addTag"/>
     </header>
     <div class="top">
-      <SegmentControls :value.sync="$route.params.recordType" @update:manageType="onTypeChanged"/>
+      <SegmentControls :value.sync="manageType" @update:manageType="onTypeChanged"/>
     </div>
     <main>
       <ol>
-        <li @click="jumpToUpdateTag(icon)" v-for="icon in currentTagList" :key="icon.id">
+        <li @click="jumpToUpdateTag(icon)" v-for="icon in currentTagList()" :key="icon.id">
           <div class="li-left">
             <Icon :name="icon.iconName"/>
             <span>{{icon.text}}</span>
@@ -35,16 +35,29 @@
   export default class TagsManage extends Vue {
     manageType = defaultRecordList.type;
 
+
+    created() {
+      this.$store.commit('initTag');
+    }
+
+    get tagList() {
+      return this.$store.state.tagList as myTag[];
+    }
+
+    currentTagList() {
+      return this.tagList.filter(item => item.type === this.manageType);
+    }
+
+
     onTypeChanged(value: string) {
       this.manageType = value;
     }
 
     jumpToUpdateTag(icon: myTag) {
       const tagId = icon.id;
-      const recordType = this.$route.params.recordType;
       // 修改 Tag
       // 需要的信息 修改的当前的 Tag
-      this.$router.push({path: `${this.$route.params.recordType}/` + 'tagedit' + `/${tagId}`});
+      this.$router.push({path: 'tagedit' + `/${tagId}`});
     }
 
     addTag() {

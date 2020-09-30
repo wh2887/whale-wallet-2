@@ -16,7 +16,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop, Watch} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
   import Icon from '@/components/Icon.vue';
 
   @Component({
@@ -28,7 +28,7 @@
     iconName = this.value.iconName;
 
     manageTags() {
-      this.$router.push({path: '/tagsmanage/' + `${this.recordType}`});
+      this.$router.push({path: '/tagsmanage/'});
     }
 
     selectIcon(icon: myTag) {
