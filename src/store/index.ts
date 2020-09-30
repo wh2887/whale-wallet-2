@@ -1,19 +1,16 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import clone from '@/lib/clone';
-import createId from '@/lib/createId';
-import payTagList from '@/dataBase/payTagList';
-import incomeTagList from '@/dataBase/incomeTagList';
-
+import tagListDB from '@/dataBase/tagListDB';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
     recordList: [] as RecordItem[],
-    tagList: [] as fuck[],
+    tagList: [] as myTag[],
     currentTag: undefined,
     currentTagDB: undefined,
-    currentTagList: [] as fuck[]
+    currentTagList: [] as myTag[]
   } as RootState,
 
   mutations: {
@@ -28,7 +25,7 @@ const store = new Vuex.Store({
       store.commit('selectTagsDataBase', payload.recordType);
       state.currentTag = (state.currentTagDB && state.currentTagDB.filter(item => item.id === payload.id)[0]);
     },
-    createTag(state, obj: fuck) {
+    createTag(state, obj: myTag) {
       const iconTexts = state.tagList.map(item => item.text);
       const iconNames = state.tagList.map(item => item.iconName);
       if (iconNames.indexOf(obj.iconName) >= 0) {
@@ -41,7 +38,7 @@ const store = new Vuex.Store({
         store.commit('saveTags');
       }
     },
-    updateTag(state, tag: fuck) {
+    updateTag(state, tag: myTag) {
       const {id, type, iconName, text} = tag;
       // 检查 id（忽略） 、 iconName 、 text 是否重复！
       // TODO
@@ -62,8 +59,6 @@ const store = new Vuex.Store({
         } else if (hasText >= 2) {
           window.alert('标签名称重复，请重新输入！');
         }
-        console.log('执行了');
-        console.log('store得到的ID：', id);
         let tag = state.tagList.filter(item => item.id === id)[0];
         if (!tag) {
           window.alert('当前修改的图标还未出现再您的已有列表中，请添加后再修改！');
@@ -79,9 +74,9 @@ const store = new Vuex.Store({
     },
     selectTagsDataBase(state, recordType: string) {
       if (recordType === '-') {
-        state.currentTagDB = payTagList;
+        state.currentTagDB = tagListDB.filter(item => item.type === '-');
       } else if (recordType === '+') {
-        state.currentTagDB = incomeTagList;
+        state.currentTagDB = tagListDB.filter(item => item.type === '+');
       } else {
         window.alert('recordType 属于非法值，只能是 \'-\' 或 \'+\' 其中之一');
         // TODO

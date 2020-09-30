@@ -1,4 +1,4 @@
-const payTagList: fuck[] = [
+const tagListDB: myTag[] = [
   {id: 1, type: '-', iconName: 'shuiguo', text: '水果'},
   {id: 2, type: '-', iconName: 'shuidianmei', text: '水电'},
   {id: 3, type: '-', iconName: 'xinyongkahuankuan', text: '信用卡还款'},
@@ -15,5 +15,10 @@ const payTagList: fuck[] = [
   {id: 14, type: '-', iconName: 'vegetables', text: '买菜'},
   {id: 15, type: '-', iconName: 'jingdong', text: '京东购物'},
   {id: 16, type: '-', iconName: 'taobao', text: '淘宝购物'},
+  {id: 17, type: '+', iconName: 'hongbao', text: '红包'},
+  {id: 18, type: '+', iconName: 'gupiao', text: '股票'},
+  {id: 19, type: '+', iconName: 'jijin', text: '基金'},
+  {id: 20, type: '+', iconName: 'jianzhi', text: '兼职'},
+  {id: 21, type: '+', iconName: 'tuikuan', text: '退款'},
 ];
-export default payTagList;
+export default tagListDB;

@@ -23,7 +23,7 @@
     components: {Icon},
   })
   export default class Tags extends Vue {
-    @Prop() value!: fuck;
+    @Prop() value!: myTag;
     @Prop(String) recordType!: string;
     iconName = this.value.iconName;
 
@@ -45,7 +45,7 @@
       this.$router.push({path: '/tagsmanage/' + `${this.recordType}`});
     }
 
-    selectIcon(icon: fuck) {
+    selectIcon(icon: myTag) {
       this.iconName = icon.iconName;
       this.$emit('update:value', icon);
       return;

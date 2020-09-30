@@ -1,4 +1,4 @@
-type fuck = {
+type myTag = {
   id: number;
   type: string;
   iconName: string;
@@ -6,17 +6,17 @@ type fuck = {
 }
 type RecordItem = {
   type: string;
-  tags: fuck[];
+  tags: myTag[];
   note: string;
   amount: number;
   createdAt?: string;
 }
 type RootState = {
   recordList: RecordItem[];
-  tagList: fuck[];
-  currentTag?: fuck;
-  currentTagDB?: fuck[];
-  currentTagList?: fuck[]
+  tagList: myTag[];
+  currentTag?: myTag;
+  currentTagDB?: myTag[];
+  currentTagList?: myTag[]
   // createRecordError: Error | null;
   // monthlyBudget: number;
 }

@@ -27,19 +27,25 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Watch} from 'vue-property-decorator';
   import Icon from '@/components/Icon.vue';
 
   @Component({
     components: {Icon}
   })
   export default class TagEdit extends Vue {
-    tag!: fuck;
+    tag!: myTag;
     routerId!: number;
     routerRecordType = '';
     iconName = '';
     tagId = 0;
     iconText = '';
+
+    @Watch('iconName')
+    onIconNameChanged() {
+      console.log(this.tag);
+      console.log('x');
+    }
 
     created() {
       this.routerId = parseInt(this.$route.params.id);
@@ -47,6 +53,10 @@
       this.$store.commit('initTags');
       this.$store.commit('selectTagsDataBase', this.routerRecordType);
       if (this.routerId !== 999) {
+        // 这边要寻找的目标是 在 tagList 中的，而不是 currentTagDB中的 list
+        // 那么有个问题 ID 在两个表之间可能重复， 怎么办？
+        // 我现在拿到的 id 不能在 taglist 中得到正确的答案！
+        // 想要解决这个问题需要做什么？==>将两个数据库的表合并为一个表，然后根据图标的 type 不同而显示相应的图标！
         this.$store.commit('findTag', {id: this.routerId, recordType: this.routerRecordType});
         this.tag = this.$store.state.currentTag;
         this.iconName = this.tag.iconName;
@@ -56,12 +66,12 @@
       }
     }
 
-    // updated() {
-    //   console.log('更新的图标ID：', this.tagId);
-    //   console.log('更新的图标类型：', this.routerRecordType);
-    //   console.log('更新的图标：', this.iconName);
-    //   console.log('更新的图表描述', this.iconText);
-    // }
+    updated() {
+      console.log('更新的图标ID：', this.tagId);
+      console.log('更新的图标类型：', this.routerRecordType);
+      console.log('更新的图标：', this.iconName);
+      console.log('更新的图表描述', this.iconText);
+    }
 
     get currentTagDB() {
       return this.$store.state.currentTagDB;
@@ -71,7 +81,7 @@
       if (this.routerId !== 999) {
         console.log('我是需要更新函数的地方！');
         // 更新Tag 信息 ： 1. 图标 iconName 2. 文本 text  ==> 同样需要得到 当前的那个 tag  (需要双向绑定的数据：实时更新的！)
-        const tag2: fuck = {
+        const tag2: myTag = {
           id: this.tagId,
           type: this.routerRecordType,
           iconName: this.iconName,
@@ -87,7 +97,7 @@
       this.$router.back();
     }
 
-    selectedIcon(value: fuck) {
+    selectedIcon(value: myTag) {
       this.iconName = value.iconName;
       this.tagId = value.id;
     }
