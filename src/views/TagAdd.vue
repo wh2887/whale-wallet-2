@@ -65,21 +65,28 @@
     }
 
     created() {
-      // this.$store.commit('initTag');
+      this.$store.commit('initTag');
       this.type = this.$route.params.type;
       this.getCurrentTagList(this.type);
-    }
-
-    updated() {
-      console.log('ID:', this.tagId);
-      console.log(this.text);
     }
 
     createOneTag() {
       const {type, iconName, text} = this;
       const tag: myTag = {id: this.tagId, type, iconName, text};
-      this.$store.commit('createTag', tag);
-      console.log('保存');
+      if (tag) {
+        try {
+          this.$store.commit('createTag', tag);
+          this.$router.back();
+        } catch (error) {
+          if (error.message === 'icon duplicated') {
+            window.alert('标签图标重复，请重新选择图标！');
+          } else if (error.message === 'text duplicated') {
+            window.alert('标签名称重复，请重新输入名称！');
+          } else {
+            return;
+          }
+        }
+      }
     }
 
 

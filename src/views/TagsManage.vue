@@ -79,7 +79,7 @@
     }
 
     .top {
-      width: 100vw; background: $color-highlight-thin;
+      width: 100%; background: $color-highlight-thin;
       padding-top: .5em;
     }
 

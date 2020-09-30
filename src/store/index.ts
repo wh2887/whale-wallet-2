@@ -21,9 +21,17 @@ const store = new Vuex.Store({
     },
     createTag(state, tag: myTag) {
       const {id, type, iconName, text} = tag;
-      // 需要检查重复等！
-      state.tagList && state.tagList.push(tag);
-      store.commit('saveTag');
+      const iconNameList = state.tagList.map(item => item.iconName);
+      const textList = state.tagList.map(item => item.text);
+      if (iconNameList.indexOf(iconName) >= 0) {
+        throw new Error('icon duplicated');
+      } else if (textList.indexOf(text) >= 0) {
+        throw new Error('text duplicated');
+      } else {
+        state.tagList && state.tagList.push(tag);
+        // 可选链语法：  this.tagList?.push(obj);
+        store.commit('saveTag');
+      }
     },
     saveTag(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
