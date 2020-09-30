@@ -7,6 +7,7 @@ import More from '@/views/More.vue';
 import TagsManage from '@/views/TagsManage.vue';
 import TagEdit from '@/views/TagEdit.vue';
 import TagAdd from '@/views/TagAdd.vue';
+import NotFound from '@/views/NotFound.vue';
 
 Vue.use(VueRouter);
 
@@ -42,6 +43,10 @@ const routes: Array<RouteConfig> = [
     path: '/more',
     name: 'more',
     component: More
+  },
+  {
+    path: '*',
+    component: NotFound
   },
 
 ];
