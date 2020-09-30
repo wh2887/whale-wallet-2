@@ -15,7 +15,7 @@
     </main>
     <footer>
       <ol>
-        <li @click="selectedIcon(icon)" v-for="icon in []" :key="icon.id"
+        <li @click="selectedIcon(icon)" v-for="icon in totalTagList" :key="icon.id"
             :class="{'selected':tagId === icon.id}"
         >
           <Icon :name="icon.iconName"/>
@@ -27,13 +27,34 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
   import Icon from '@/components/Icon.vue';
+  import tagListDB from '@/dataBase/tagListDB';
 
   @Component({
     components: {Icon}
   })
   export default class TagAdd extends Vue {
+    type!: string;
+    totalTagList: myTag[] = [];
+
+    getCurrentTagList(type: string) {
+      if (type === '-') {
+        this.totalTagList = tagListDB.filter(item => item.type === '-');
+      } else {
+        this.totalTagList = tagListDB.filter(item => item.type === '+');
+      }
+      return;
+    }
+    created() {
+      // 页面出现的时候就需要初始化到 taglist  // 这个 tagList 应该是能提供的所有图标（按 type 输出）！
+      // 那不就是 tagListDB 吗？
+      // this.$store.commit('initTag');
+      this.type = this.$route.params.type;
+      this.getCurrentTagList(this.type);
+    }
+
+
   }
 </script>
 

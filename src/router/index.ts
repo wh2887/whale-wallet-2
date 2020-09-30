@@ -35,7 +35,7 @@ const routes: Array<RouteConfig> = [
     component: TagsManage,
   },
   {
-    path: '/tagsmanage/tagAdd',
+    path: '/tagsmanage/:type/tagAdd/',
     component: TagAdd
   },
   {

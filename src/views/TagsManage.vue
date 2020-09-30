@@ -5,11 +5,9 @@
       <span>分类管理</span>
       <Icon name="add" @click.native="addTag"/>
     </header>
-
     <div class="top">
-      <SegmentControls :value.sync="$route.params.recordType" @updateSegmentType="onTypeChanged"/>
+      <SegmentControls :value.sync="$route.params.recordType" @update:manageType="onTypeChanged"/>
     </div>
-
     <main>
       <ol>
         <li @click="jumpToUpdateTag(icon)" v-for="icon in currentTagList" :key="icon.id">
@@ -29,12 +27,17 @@
   import {Component} from 'vue-property-decorator';
   import SegmentControls from '@/components/SegmentControls.vue';
   import Icon from '@/components/Icon.vue';
+  import defaultRecordList from '@/constants/defaultRecordList';
 
   @Component({
     components: {SegmentControls, Icon}
   })
   export default class TagsManage extends Vue {
-    segmentType!: string;
+    manageType = defaultRecordList.type;
+
+    onTypeChanged(value: string) {
+      this.manageType = value;
+    }
 
     jumpToUpdateTag(icon: myTag) {
       const tagId = icon.id;
@@ -47,7 +50,7 @@
     addTag() {
       // TODO
       // 跳转之前需要的信息 ： 仅仅是 ！！ segmentControls 组件的 type响应。
-      this.$router.push({path: '/tagsmanage/tagAdd'});
+      this.$router.push({path: `/tagsmanage/${this.manageType}/tagAdd/`});
     }
   }
 </script>

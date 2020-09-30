@@ -20,7 +20,6 @@ const store = new Vuex.Store({
       }
     },
     createTag(state, tag: myTag) {
-
     },
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];

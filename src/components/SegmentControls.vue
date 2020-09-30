@@ -15,12 +15,13 @@
   @Component
   export default class SegmentControls extends Vue {
     @Prop(String) value!: string;
+    @Prop(String) manageType!: string;
     type = this.value;
 
     @Watch('type')
     onTypeChanged() {
-      this.$emit('update:value',this.type);
-      this.$emit('updateSegmentType',this.type)
+      this.$emit('update:value', this.type);
+      this.$emit('update:manageType', this.type);
     }
 
     selectType(value: string) {
