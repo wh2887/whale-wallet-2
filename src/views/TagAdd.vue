@@ -2,7 +2,7 @@
   <div class="tag-add-wrapper">
     <header>
       <Icon name="back" @click.native="$router.go(-1)"/>
-      <span>编辑分类</span>
+      <span>新建分类</span>
       <span @click="createOneTag">保存</span>
     </header>
     <main>

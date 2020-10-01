@@ -40,6 +40,11 @@ const routes: Array<RouteConfig> = [
     component: TagAdd
   },
   {
+    path: '/tagsmanage/tagedit/:tagid',
+    component: TagEdit,
+  },
+
+  {
     path: '/more',
     name: 'more',
     component: More

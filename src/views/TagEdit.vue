@@ -3,20 +3,20 @@
     <header>
       <Icon name="back" @click.native="$router.go(-1)"/>
       <span>编辑分类</span>
-      <span @click="saveTag">保存</span>
+      <span @click="updateOneTag">保存</span>
     </header>
     <main>
       <div class="input-wrapper">
         <Icon :name="iconName"/>
         <label>
-          <input type="text" v-model="iconText" placeholder="输入字符不得超过 3 个">
+          <input type="text" v-model="text" placeholder="输入字符不得超过 3 个">
         </label>
       </div>
     </main>
     <footer>
       <ol>
-        <li @click="selectedIcon(icon)" v-for="icon in currentTagDB" :key="icon.id"
-            :class="{'selected':tagId === icon.id}"
+        <li @click="selectedIcon(icon)" v-for="icon in currentTagList()" :key="icon.id"
+            :class="{'selected':id === icon.id}"
         >
           <Icon :name="icon.iconName"/>
         </li>
@@ -27,26 +27,57 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Watch} from 'vue-property-decorator';
+  import {Component} from 'vue-property-decorator';
   import Icon from '@/components/Icon.vue';
+  import tagListDB from '@/dataBase/tagListDB';
+  import clone from '@/lib/clone';
 
   @Component({
     components: {Icon}
   })
   export default class TagEdit extends Vue {
     tag!: myTag;
-    routerId!: number;
-    routerRecordType = '';
     iconName = '';
-    tagId = 0;
-    iconText = '';
-    saveTag() {
-      this.$router.back();
+    id = 0;
+    text = '';
+    _iconName = '';
+    _text = '';
+
+    created() {
+      this.currentTagList();
+      this.id = this.tag.id;
+      this.iconName = this.tag.iconName;
+      this.text = this.tag.text;
+      this._iconName = clone(this.iconName);
+      this._text = clone(this.text);
     }
+
+    get tagList() {
+      return this.$store.state.tagList as myTag[];
+    }
+
+    currentTagList() {
+      const currentTag = this.tagList.filter(item => item.id.toString() === this.$route.params.tagid)[0];
+      this.tag = currentTag;
+      return tagListDB.filter(item => item.type === currentTag.type);
+    }
+
+    updateOneTag() {
+      console.log(this._iconName);
+      this.$store.commit('updateTag', {
+        id: this.id,
+        iconName: this.iconName,
+        text: this.text,
+        clonedTag: {iconName: this._iconName, text: this._text}
+      });
+      // this.$router.back();
+    }
+
     selectedIcon(value: myTag) {
       this.iconName = value.iconName;
-      this.tagId = value.id;
+      this.id = value.id;
     }
+
   }
 </script>
 

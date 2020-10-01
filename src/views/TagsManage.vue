@@ -48,7 +48,6 @@
       return this.tagList.filter(item => item.type === this.manageType);
     }
 
-
     onTypeChanged(value: string) {
       this.manageType = value;
     }
@@ -57,13 +56,13 @@
       const tagId = icon.id;
       // 修改 Tag
       // 需要的信息 修改的当前的 Tag
-      this.$router.push({path: 'tagedit' + `/${tagId}`});
+      this.$router.push({path: `/tagsmanage/tagedit/${tagId}`});
     }
 
     addTag() {
       // TODO
       // 跳转之前需要的信息 ： 仅仅是 ！！ segmentControls 组件的 type响应。
-      this.$router.push({path: `/tagsmanage/${this.manageType}/tagAdd/`});
+      this.$router.push({path: `/tagsmanage/${this.manageType}/tagAdd`});
     }
   }
 </script>
