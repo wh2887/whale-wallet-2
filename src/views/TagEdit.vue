@@ -73,13 +73,13 @@
           clonedTag: {id: this._id, iconName: this._iconName, text: this._text}
         });
         this.$router.back();
-      } catch (message) {
-        if (message === 'text duplicated') {
-          window.alert('标签名称重复，请重新输入名称！');
-        } else if (message === 'icon duplicated') {
-          window.alert('标签图标重复，请重新选择图标！');
-        } else {
-          return;
+      } catch (error) {
+        if (error.message === 'icon duplicated') {
+          window.alert('标签图标重复，请重新选择！');
+        } else if (error.message === 'text duplicated') {
+          window.alert('标签名称重复，请重新输入！');
+        } else if (error.message === 'text empty') {
+          window.alert('标签名称不能为空，请重新输入！');
         }
       }
     }

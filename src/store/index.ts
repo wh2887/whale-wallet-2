@@ -41,20 +41,23 @@ const store = new Vuex.Store({
       const iconName = payload.iconName;
       const text = payload.text;
       const idList = state.tagList.map(item => item.id);
-      if (idList.indexOf(id) >= 0) {
-        const nameList = state.tagList.map(item => item.iconName);
+      const nameList = state.tagList.map(item => item.iconName);
+      if (text === ''){
+        throw new Error('text empty')
+      }
+      if (nameList.indexOf(iconName) >= 0) {
         const hasIconName = nameList.reduce((a, v) => v === iconName ? a + 1 : a, 0);
         const textList = state.tagList.map(item => item.text);
         const hasText = textList.reduce((a, v) => v === text ? a + 2 : a, 0);
         if (iconName !== payload.clonedTag.iconName) {
           if (hasIconName >= 1) {
-            throw new Error('icon duplicated');
+            throw new Error('icon duplicated')
           } else if (hasText >= 1) {
-            throw new Error('text duplicated');
+            throw new Error('text duplicated')
           }
         } else {
           if (hasText >= 1) {
-            throw new Error('text duplicated');
+            throw new Error('text duplicated')
           }
           const tag = state.tagList.filter(item => item.id === id)[0];
           tag.iconName = iconName;
