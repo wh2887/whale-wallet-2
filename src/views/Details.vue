@@ -9,20 +9,25 @@
       </div>
       <div class="details">
         <div class="left">
-          <span class="year">2020年</span>
-          <span class="month">
-            09月
-            <Icon name="arrow-down"/>
-          </span>
+          <a-date-picker v-model="time" placeholder="Select Time" @change="onChange">
+            <div>
+              <span class="year">2020年</span>
+              <span class="month">
+              09月
+              <Icon name="arrow-down"/>
+            </span>
+            </div>
+          </a-date-picker>
         </div>
+
         <div class="right">
           <div class="income">
             <span>收入</span>
-            <span>50.00</span>
+            <span>{{monthIncome.toFixed(2)}}</span>
           </div>
           <div class="pay">
             <span>支出</span>
-            <span>12.82</span>
+            <span>{{monthPay.toFixed(2)}}</span>
           </div>
         </div>
       </div>
@@ -46,18 +51,43 @@
   import Icon from '@/components/Icon.vue';
   import clone from '@/lib/clone';
   import dayjs from 'dayjs';
+  import {DatePicker} from 'ant-design-vue';
+  import 'ant-design-vue/dist/antd.css';
+  import {Moment} from 'moment';
 
   @Component({
     components: {DetailList, SegmentControls, Icon}
   })
   export default class Details extends Vue {
+    monthIncome = 0;
+    monthPay = 0;
+
     beforeCreate() {
       this.$store.commit('fetchRecords');
+    }
+
+    created() {
+      this.monthTotal;
     }
 
     get recordList() {
       return (this.$store.state as RootState).recordList;
     }
+
+
+    // 月收入与支出
+    get monthTotal() {
+      const total = this.groupedList;
+      for (let i = 0; i < total.length; i++) {
+        if (dayjs().isSame(total[i].title, 'month')) {
+          this.monthPay += total[i].payTotal!;
+          this.monthIncome += total[i].incomeTotal!;
+          console.log(this.monthPay, this.monthIncome);
+        }
+      }
+      return '';
+    }
+
 
     get groupedList() {
       const {recordList} = this;

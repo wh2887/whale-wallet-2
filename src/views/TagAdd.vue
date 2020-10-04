@@ -43,7 +43,6 @@
     tagId = 0;
     iconName = '';
     text = '';
-
     totalTagList: myTag[] = [];
 
     getCurrentTagList(type: string) {

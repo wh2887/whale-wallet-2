@@ -2,7 +2,7 @@
   <div class="detailList" v-if="dataSource.length>0">
     <ul v-for="(group,index) in dataSource" :key="index">
       <li>
-        <span>{{group.title}}</span>
+        <span>{{beautify(group.title)}}</span>
         <span>收入: {{group.incomeTotal}} | 支出: {{group.payTotal}}</span>
       </li>
       <li class="daily-record" v-for="item in group.items" :key="item.id">
@@ -30,6 +30,7 @@
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
   import Icon from '@/components/Icon.vue';
+  import dayjs from 'dayjs';
 
   @Component({
     components: {Icon},
@@ -38,6 +39,21 @@
     @Prop() dataSource!: {}[];
 
 
+    beautify(string: string) {
+      const day = dayjs(string);
+      const now = dayjs();
+      if (day.isSame(now, 'day')) {
+        return '今天';
+      } else if (day.isSame(now.subtract(1, 'day'), 'day')) {
+        return '昨天';
+      } else if (day.isSame(now.subtract(2, 'day'), 'day')) {
+        return '前天';
+      } else if (day.isSame(now, 'year')) {
+        return day.format('MM月DD日');
+      } else {
+        return day.format('YYYY年MM月DD日');
+      }
+    }
   }
 </script>
 

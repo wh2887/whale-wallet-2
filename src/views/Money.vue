@@ -50,6 +50,11 @@
       this.record.createdAt = this.today;
     }
 
+    destroyed() {
+      this.record.amount = 0;
+    }
+
+
     get beautify() {
       return dayjs(this.today).format('YYYY-MM-DD');
     }

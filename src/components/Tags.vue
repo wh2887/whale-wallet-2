@@ -1,7 +1,7 @@
 <template>
   <div class="tabs-wrapper">
     <ul>
-      <li :class="{'selected':iconName === icon.iconName}" v-for="icon in currentTagList" :key="icon.id"
+      <li :class="{'selected':iconName === icon.iconName}" v-for="icon in totalTagList" :key="icon.id"
           @click="selectIcon(icon)">
         <Icon :name="icon.iconName"/>
       </li>
@@ -16,8 +16,10 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
+  import {Component, Prop, Watch} from 'vue-property-decorator';
   import Icon from '@/components/Icon.vue';
+  import defaultPayTag from '@/constants/defaultPayTag';
+  import defaultIncomeTag from '@/constants/defaultIncomeTag';
 
   @Component({
     components: {Icon},
@@ -26,6 +28,33 @@
     @Prop() value!: myTag;
     @Prop(String) recordType!: string;
     iconName = this.value.iconName;
+    defaultIconName = '';
+    totalTagList: myTag[] = [];
+
+    get tagList() {
+      return this.$store.state.tagList as myTag[];
+    }
+
+    @Watch('recordType')
+    onRecordTypeChanged() {
+      this.getCurrentTagList(this.recordType);
+    }
+
+    created() {
+      this.$store.commit('initTag');
+      this.getCurrentTagList(this.recordType);
+    }
+
+    getCurrentTagList(type: string) {
+      if (type === '-') {
+        this.totalTagList = this.tagList.filter(item => item.type === '-');
+        this.defaultIconName = defaultPayTag.iconName;
+      } else if (type === '+') {
+        this.totalTagList = this.tagList.filter(item => item.type === '+');
+        this.defaultIconName = defaultIncomeTag.iconName;
+      }
+      return;
+    }
 
     manageTags() {
       this.$router.push({path: '/tagsmanage/'});

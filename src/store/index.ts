@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import clone from '@/lib/clone';
-import tagListDB from '@/dataBase/tagListDB';
 import createId from '@/lib/createId';
 
 Vue.use(Vuex);
@@ -16,9 +15,8 @@ const store = new Vuex.Store({
     initTag(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
       if (!state.tagList || state.tagList.length === 0) {
-        // 如果没有 标签，那么需要我给你们创造初始化的标签！
-        // TODO
-        // store.commit('createTag',{id: ,type: ,iconName: ,text: ,})
+        store.commit('createTag',{id: 0,type: '-',iconName: 'shuiguo',text: '水果',})
+        store.commit('createTag',{id: 0,type: '+',iconName: 'hongbao',text: '红包',})
       }
     },
     createTag(state, tag: myTag) {
