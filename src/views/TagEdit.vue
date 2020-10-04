@@ -15,8 +15,8 @@
     </main>
     <footer>
       <ol>
-        <li @click="selectedIcon(icon)" v-for="icon in currentTagList()" :key="icon.id"
-            :class="{'selected':id === icon.id}"
+        <li @click="selectedIcon(icon)" v-for="(icon,index) in currentTagList()" :key="index"
+            :class="{'selected':iconName === icon.iconName}"
         >
           <Icon :name="icon.iconName"/>
         </li>
@@ -42,12 +42,14 @@
     text = '';
     _iconName = '';
     _text = '';
+    _id = 0;
 
     created() {
       this.currentTagList();
       this.id = this.tag.id;
       this.iconName = this.tag.iconName;
       this.text = this.tag.text;
+      this._id = clone(this.id);
       this._iconName = clone(this.iconName);
       this._text = clone(this.text);
     }
@@ -63,14 +65,23 @@
     }
 
     updateOneTag() {
-      console.log(this._iconName);
-      this.$store.commit('updateTag', {
-        id: this.id,
-        iconName: this.iconName,
-        text: this.text,
-        clonedTag: {iconName: this._iconName, text: this._text}
-      });
-      // this.$router.back();
+      try {
+        this.$store.commit('updateTag', {
+          id: this.id,
+          iconName: this.iconName,
+          text: this.text,
+          clonedTag: {id: this._id, iconName: this._iconName, text: this._text}
+        });
+        this.$router.back();
+      } catch (message) {
+        if (message === 'text duplicated') {
+          window.alert('标签名称重复，请重新输入名称！');
+        } else if (message === 'icon duplicated') {
+          window.alert('标签图标重复，请重新选择图标！');
+        } else {
+          return;
+        }
+      }
     }
 
     selectedIcon(value: myTag) {
@@ -146,7 +157,6 @@
           }
         }
       }
-
     }
   }
 </style>

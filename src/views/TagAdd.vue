@@ -15,8 +15,8 @@
     </main>
     <footer>
       <ol>
-        <li @click="selectedIcon(icon)" v-for="icon in totalTagList" :key="icon.id"
-            :class="{'selected': tagId === icon.id}"
+        <li @click="selectedIcon(icon)" v-for="(icon,index) in totalTagList" :key="index"
+            :class="{'selected': iconName === icon.iconName}"
         >
           <Icon :name="icon.iconName"/>
         </li>
@@ -83,13 +83,11 @@
           } else if (error.message === 'text duplicated') {
             window.alert('标签名称重复，请重新输入名称！');
           } else {
-            return;
+            this.$router.back();
           }
         }
       }
     }
-
-
   }
 </script>
 
