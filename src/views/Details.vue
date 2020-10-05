@@ -11,9 +11,9 @@
         <div class="left">
           <a-date-picker v-model="time" placeholder="Select Time" @change="onChange">
             <div>
-              <span class="year">2020年</span>
+              <span class="year">{{year}}年</span>
               <span class="month">
-              09月
+              {{month}}月
               <Icon name="arrow-down"/>
             </span>
             </div>
@@ -33,7 +33,7 @@
       </div>
       <div class="receipt-wrapper">
         <div class="receipt">
-          <DetailList :data-source="groupedList"/>
+          <DetailList :data-source="selectedMonthList"/>
         </div>
       </div>
     </header>
@@ -45,13 +45,12 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Watch} from 'vue-property-decorator';
   import SegmentControls from '@/components/SegmentControls.vue';
   import DetailList from '@/components/DetailList.vue';
   import Icon from '@/components/Icon.vue';
   import clone from '@/lib/clone';
   import dayjs from 'dayjs';
-  import {DatePicker} from 'ant-design-vue';
   import 'ant-design-vue/dist/antd.css';
   import {Moment} from 'moment';
 
@@ -61,39 +60,52 @@
   export default class Details extends Vue {
     monthIncome = 0;
     monthPay = 0;
+    time = '';
+    year = dayjs(new Date()).format('YYYY');
+    month = dayjs(new Date()).format('MM');
+    selectedMonthList!: Result;
 
     beforeCreate() {
       this.$store.commit('fetchRecords');
     }
 
     created() {
-      this.monthTotal;
+      this.monthTotal(this.year, this.month);
+    }
+
+    @Watch('time')
+    onTimeChanged() {
+      this.year = dayjs(this.time).format('YYYY');
+      this.month = dayjs(this.time).format('MM');
+      this.monthTotal(this.year, this.month);
     }
 
     get recordList() {
       return (this.$store.state as RootState).recordList;
     }
 
+    onChange(date: Moment | string, dateString: string) {
+      this.time = new Date(dateString).toISOString();
+    }
 
-    // 月收入与支出
-    get monthTotal() {
+    monthTotal(x: string, y: string) {
+      this.monthPay = 0;
+      this.monthIncome = 0;
       const total = this.groupedList;
-      for (let i = 0; i < total.length; i++) {
-        if (dayjs().isSame(total[i].title, 'month')) {
-          this.monthPay += total[i].payTotal!;
-          this.monthIncome += total[i].incomeTotal!;
-          console.log(this.monthPay, this.monthIncome);
-        }
+      this.selectedMonthList = total.filter(item => dayjs(item.title).format('MM') === y);
+      for (let i = 0; i < this.selectedMonthList.length; i++) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        this.monthPay += this.selectedMonthList[i].payTotal!;
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        this.monthIncome += this.selectedMonthList[i].incomeTotal!;
       }
       return '';
     }
-
 
     get groupedList() {
       const {recordList} = this;
       if (recordList.length === 0) {return []; }
       const newList = clone(recordList).sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
-      type Result = { title: string; payTotal?: number; incomeTotal?: number; items: RecordItem[] }[]
       const result: Result = [
         {
           title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'),
@@ -127,7 +139,6 @@
       });
       return result;
     }
-
   }
 </script>
 

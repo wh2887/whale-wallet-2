@@ -28,7 +28,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
+  import {Component, Prop, Watch} from 'vue-property-decorator';
   import Icon from '@/components/Icon.vue';
   import dayjs from 'dayjs';
 
@@ -37,7 +37,6 @@
   })
   export default class DetailList extends Vue {
     @Prop() dataSource!: {}[];
-
 
     beautify(string: string) {
       const day = dayjs(string);

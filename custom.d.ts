@@ -15,3 +15,4 @@ type RootState = {
   recordList: RecordItem[];
   tagList: myTag[];
 }
+type Result = { title: string; payTotal?: number; incomeTotal?: number; items: RecordItem[] }[]
