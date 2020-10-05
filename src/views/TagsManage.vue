@@ -111,9 +111,13 @@
           padding-bottom: .5em;
 
           > .li-left {
+            padding-left: .5em;
             display: flex;
             justify-content: center;
             align-items: center;
+            > :last-child{
+              padding-left: 1em;
+            }
           }
         }
       }

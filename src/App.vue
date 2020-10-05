@@ -1,15 +1,30 @@
 <template>
-  <div id="app">
-    <router-view/>
-    <Nav/>
-  </div>
+  <a-locale-provider :locale="locale">
+    <div id="app">
+      <router-view/>
+      <Nav/>
+    </div>
+  </a-locale-provider>
 </template>
 
 <script>
   import Nav from '@/components/Nav'
+  import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
+  import { DatePicker } from 'ant-design-vue';
+  import Vue from 'vue'
+  import moment from 'moment';
+  import 'moment/locale/zh-cn';
+  moment.locale('zh-cn');
+  Vue.use(DatePicker)
 
   export default {
-    components: {Nav}
+    components: {Nav},
+    data() {
+      return {
+        locale: zhCN
+      }
+    }
+
   }
 </script>
 
@@ -33,7 +48,8 @@
     > :first-child {
       flex-grow: 1;
     }
-    @media (max-width: 320px){
+
+    @media (max-width: 320px) {
       font-size: 14px;
     }
   }

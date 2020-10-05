@@ -9,7 +9,7 @@
       </div>
       <div class="details">
         <div class="left">
-          <a-date-picker v-model="time" placeholder="Select Time" @change="onChange">
+          <a-month-picker v-model="time" placeholder="Select Time" @change="onChange">
             <div>
               <span class="year">{{year}}年</span>
               <span class="month">
@@ -17,7 +17,7 @@
               <Icon name="arrow-down"/>
             </span>
             </div>
-          </a-date-picker>
+          </a-month-picker>
         </div>
 
         <div class="right">
@@ -53,6 +53,8 @@
   import dayjs from 'dayjs';
   import 'ant-design-vue/dist/antd.css';
   import {Moment} from 'moment';
+  import { DatePicker } from 'ant-design-vue';
+  Vue.use(DatePicker)
 
   @Component({
     components: {DetailList, SegmentControls, Icon}
