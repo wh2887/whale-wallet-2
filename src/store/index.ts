@@ -15,8 +15,8 @@ const store = new Vuex.Store({
     initTag(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
       if (!state.tagList || state.tagList.length === 0) {
-        store.commit('createTag',{id: 0,type: '-',iconName: 'shuiguo',text: '水果',})
-        store.commit('createTag',{id: 0,type: '+',iconName: 'hongbao',text: '红包',})
+        store.commit('createTag', {id: 0, type: '-', iconName: 'shuiguo', text: '水果',});
+        store.commit('createTag', {id: 0, type: '+', iconName: 'hongbao', text: '红包',});
       }
     },
     createTag(state, tag: myTag) {
@@ -40,8 +40,8 @@ const store = new Vuex.Store({
       const text = payload.text;
       const idList = state.tagList.map(item => item.id);
       const nameList = state.tagList.map(item => item.iconName);
-      if (text === ''){
-        throw new Error('text empty')
+      if (text === '') {
+        throw new Error('text empty');
       }
       if (nameList.indexOf(iconName) >= 0) {
         const hasIconName = nameList.reduce((a, v) => v === iconName ? a + 1 : a, 0);
@@ -49,13 +49,13 @@ const store = new Vuex.Store({
         const hasText = textList.reduce((a, v) => v === text ? a + 2 : a, 0);
         if (iconName !== payload.clonedTag.iconName) {
           if (hasIconName >= 1) {
-            throw new Error('icon duplicated')
+            throw new Error('icon duplicated');
           } else if (hasText >= 1) {
-            throw new Error('text duplicated')
+            throw new Error('text duplicated');
           }
         } else {
           if (hasText >= 1) {
-            throw new Error('text duplicated')
+            throw new Error('text duplicated');
           }
           const tag = state.tagList.filter(item => item.id === id)[0];
           tag.iconName = iconName;
@@ -95,7 +95,11 @@ const store = new Vuex.Store({
     },
     createRecord(state, record: RecordItem) {
       const record2 = clone(record);
-      state.recordList.push(record2);
+      if (record2.tags.iconName === '') {
+        throw new Error('icon empty');
+      } else {
+        state.recordList.push(record2);
+      }
       store.commit('saveRecords');
     },
     saveRecords(state) {

@@ -67,7 +67,13 @@
 
     saveRecord(value: number) {
       this.record.amount = value;
-      this.$store.commit('createRecord', this.record);
+      try {
+        this.$store.commit('createRecord', this.record);
+      } catch (error) {
+        if (error.message === 'icon empty') {
+          window.alert('分类图标不能为空！');
+        }
+      }
     }
   }
 </script>

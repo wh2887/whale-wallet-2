@@ -1,6 +1,6 @@
 export default {
   type: '-',
-  tags: {id: 1, type: '-', iconName: 'shuiguo', text: '水果'},
+  tags: {id: 0, type: '-', iconName: '', text: ''},
   note: '',
   amount: 0,
   createdAt: ''
