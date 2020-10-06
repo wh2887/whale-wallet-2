@@ -16,11 +16,17 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import SegmentControls from '@/components/SegmentControls.vue';
+  import echarts from 'echarts'
+
 
   @Component({
     components: {SegmentControls}
   })
   export default class Statistic extends Vue {
+
+    created(){
+      console.log(echarts);
+    }
 
   }
 </script>
