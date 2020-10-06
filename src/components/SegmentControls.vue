@@ -39,7 +39,7 @@
       display: flex;
       flex-direction: row;
       justify-content: center;
-      padding: .5em 0;
+      margin-bottom: 0;
 
       > li {
         padding: .3em 0;

@@ -58,10 +58,8 @@
       if (this.output.length >= 16) {return;}
       if (this.output === '0') {
         if ('0123456789'.indexOf(input) >= 0) {
-          //如果是其中一个就直接替换默认的0位其中的
           this.output = input;
         } else {
-          //如果输入点'.' 就直接往后加
           this.output += input;
         }
         return;

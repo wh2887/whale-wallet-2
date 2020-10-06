@@ -54,7 +54,6 @@
       this.record.amount = 0;
     }
 
-
     get beautify() {
       return dayjs(this.today).format('YYYY-MM-DD');
     }
@@ -98,9 +97,9 @@
     }
 
     .bottom {
+      flex: 1;
       background: $color-f;
       width: $width;
-      height: 50vh;
       margin-top: $top-margin/2;
       margin-bottom: $top-margin/4;
       border-radius: $bg-radius;
