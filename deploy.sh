@@ -15,6 +15,6 @@ git commit -m 'deploy'
 
 # 部署到 https://<USERNAME>.github.io/<REPO>
 git push -f git@github.com:wh2887/whale-wallet-2-website.git master:gh-pages
-#git push -f git@gitee.com:hellow2887/whale-wallet-website.git master:dist
+git push -f git@gitee.com:hellow2887/whale-wallet.git master:dist
 cd -
 
