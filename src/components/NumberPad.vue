@@ -114,7 +114,7 @@
     align-items: center;
     flex-wrap: wrap;
     border-radius: 12px;
-    margin: 1em;
+    margin: .5em;
 
     .output-wrapper {
       width: 100%;

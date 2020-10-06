@@ -6,7 +6,7 @@ type myTag = {
 }
 type RecordItem = {
   type: string;
-  tags: myTag[];
+  tags: myTag;
   note: string;
   amount: number;
   createdAt?: string;

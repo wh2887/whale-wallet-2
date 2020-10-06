@@ -85,18 +85,15 @@
     @extend %displayAuto;
 
     .top {
-      width: $width; margin-top: $top-margin; background: $color-highlight-thin; padding: 1em 2em; border-radius: $bg-radius;
+      width: $width; margin-top: $top-margin/2; background: $color-highlight-thin; padding: .8em 2em; border-radius: $bg-radius;
     }
 
     .middle {
       background: $color-f;
-      width: $width; height: 20vh; border-radius: $bg-radius; margin-top: $top-margin/2;
+      width: $width; height: 18vh; border-radius: $bg-radius; margin-top: $top-margin/2;
       overflow-y: auto;
-
       &::-webkit-scrollbar { width: 0 !important }
-
       & { overflow: -moz-scrollbars-none; }
-
       & { -ms-overflow-style: none; }
     }
 
@@ -105,6 +102,7 @@
       width: $width;
       height: 50vh;
       margin-top: $top-margin/2;
+      margin-bottom: $top-margin/4;
       border-radius: $bg-radius;
     }
   }

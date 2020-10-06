@@ -94,7 +94,7 @@ const store = new Vuex.Store({
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     },
     createRecord(state, record: RecordItem) {
-      const record2 = clone(record);
+      const record2: RecordItem = clone(record);
       if (record2.tags.iconName === '') {
         throw new Error('icon empty');
       } else {
