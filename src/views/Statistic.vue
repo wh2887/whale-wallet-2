@@ -18,7 +18,6 @@
   import SegmentControls from '@/components/SegmentControls.vue';
   import Chart from '@/components/Chart.vue';
 
-
   @Component({
     components: {Chart, SegmentControls}
   })
@@ -44,8 +43,6 @@
         }]
       };
     }
-
-
   }
 </script>
 

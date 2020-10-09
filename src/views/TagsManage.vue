@@ -89,6 +89,7 @@
     .top {
       width: 100%; background: $color-highlight-thin;
       padding-top: .5em;
+      padding-bottom: .5em;
     }
 
     main {
@@ -111,7 +112,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            > :last-child{
+
+            > :last-child {
               padding-left: 1em;
             }
           }

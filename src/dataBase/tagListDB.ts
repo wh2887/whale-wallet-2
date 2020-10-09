@@ -20,5 +20,7 @@ const tagListDB: myTag[] = [
   {id: 0, type: '+', iconName: 'jijin', text: '基金'},
   {id: 0, type: '+', iconName: 'jianzhi', text: '兼职'},
   {id: 0, type: '+', iconName: 'tuikuan', text: '退款'},
+  {id: 0, type: '-', iconName: 'lingshi', text: '零食'},
+  {id: 0, type: '-', iconName: 'chaoshi', text: '超市'},
 ];
 export default tagListDB;
