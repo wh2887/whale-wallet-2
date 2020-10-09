@@ -20,9 +20,9 @@
       }
       this.chart = echarts.init(this.$refs.wrapper as HTMLDivElement);
       this.chart.setOption(this.options);
-      const div = (this.$refs.wrapper as HTMLDivElement)
-      div.style.width = div.offsetWidth + 'px'
-      div.style.height = div.offsetHeight + 'px'
+      const div = (this.$refs.wrapper as HTMLDivElement);
+      div.style.width = div.offsetWidth + 'px';
+      div.style.height = div.offsetHeight + 'px';
 
     }
 
@@ -32,6 +32,8 @@
 <style lang="scss" scoped>
   .echarts-wrapper {
     height: 400px;
+    width: 430%;
+    overflow-y: auto;
   }
 
 </style>
