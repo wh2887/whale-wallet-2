@@ -53,8 +53,9 @@
   import dayjs from 'dayjs';
   import 'ant-design-vue/dist/antd.css';
   import {Moment} from 'moment';
-  import { DatePicker } from 'ant-design-vue';
-  Vue.use(DatePicker)
+  import {DatePicker} from 'ant-design-vue';
+
+  Vue.use(DatePicker);
 
   @Component({
     components: {DetailList, SegmentControls, Icon}
@@ -65,7 +66,7 @@
     time = '';
     year = dayjs(new Date()).format('YYYY');
     month = dayjs(new Date()).format('MM');
-    selectedMonthList!: Result;
+    selectedMonthList!: Result[];
 
     beforeCreate() {
       this.$store.commit('fetchRecords');
@@ -108,7 +109,7 @@
       const {recordList} = this;
       if (recordList.length === 0) {return []; }
       const newList = clone(recordList).sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
-      const result: Result = [
+      const result: Result[] = [
         {
           title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'),
           payTotal: 0,

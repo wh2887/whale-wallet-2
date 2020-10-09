@@ -1,46 +1,137 @@
 <template>
   <div class="statistic-wrapper">
     <div class="statistic-top">
-      <SegmentControls value="-"/>
+      <SegmentControls :value="recordType" :statistic-type.sync="recordType"/>
     </div>
     <div class="chart-wrapper" ref="chartWrapper">
       <Chart class="chart" :options="chartOptions"/>
     </div>
     <div class="statistic-bottom">
-
     </div>
   </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Watch} from 'vue-property-decorator';
   import SegmentControls from '@/components/SegmentControls.vue';
   import Chart from '@/components/Chart.vue';
+  import dayjs from 'dayjs';
+  import _ from 'lodash';
+  import clone from '@/lib/clone';
+  import defaultRecordList from '@/constants/defaultRecordList';
 
   @Component({
     components: {Chart, SegmentControls}
   })
   export default class Statistic extends Vue {
+    recordType = defaultRecordList.type;
+
+    created() {
+      this.$store.commit('fetchRecords');
+    }
 
     mounted() {
       const div = (this.$refs.chartWrapper as HTMLDivElement);
       div.scrollLeft = div.scrollWidth;
     }
 
+    get recordList() {
+      return (this.$store.state as RootState).recordList;
+    }
+
+    get groupedList() {
+      const {recordList} = this;
+      if (recordList.length === 0) {return []; }
+      const newList = clone(recordList).sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+      const result: Result[] = [
+        {
+          title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'),
+          payTotal: 0,
+          incomeTotal: 0,
+          items: [newList[0]]
+        }
+      ];
+      for (let i = 1; i < newList.length; i++) {
+        const current = newList[i];
+        const last = result[result.length - 1];
+        if (dayjs(last.title).isSame(dayjs(current.createdAt), 'day')) {
+          last.items.push(current);
+        } else {
+          result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]});
+        }
+      }
+      result.map(group => {
+        group.payTotal = group.items.reduce((sum, item) => {
+          if (item.type === '-') {
+            sum += item.amount;
+          }
+          return sum;
+        }, 0);
+        group.incomeTotal = group.items.reduce((sum, item) => {
+          if (item.type === '+') {
+            sum += item.amount;
+          }
+          return sum;
+        }, 0);
+      });
+      return result;
+    }
+
+    getKeyValueList(type: string) {
+      const today = new Date();
+      const payArray = [];
+      const incomeArray = [];
+      for (let i = 0; i <= 29; i++) {
+        const dateString = dayjs(today)
+          .subtract(i, 'day').format('YYYY-MM-DD');
+        const found = _.find(this.groupedList, {
+          title: dateString
+        });
+        if (type === '-') {
+          payArray.push({
+            key: dateString, value: found ? found.payTotal : 0
+          });
+          payArray.sort((a, b) => {
+            if (a.key > b.key) {
+              return 1;
+            } else if (a.key === b.key) {
+              return 0;
+            } else {
+              return -1;
+            }
+          });
+        } else {
+          incomeArray.push({
+            key: dateString, value: found ? found.incomeTotal : 0
+          });
+          incomeArray.sort((a, b) => {
+            if (a.key > b.key) {
+              return 1;
+            } else if (a.key === b.key) {
+              return 0;
+            } else {
+              return -1;
+            }
+          });
+        }
+      }
+      if (type === '-') {
+        return payArray;
+      } else {
+        return incomeArray;
+      }
+    }
+
+    @Watch('recordType')
+    onTypeChanged(value: string) {
+      this.recordType = value;
+    }
+
+
     get chartOptions() {
-
-      const keys = [
-        '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-        '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-        '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'
-      ];
-
-      const values = [
-        '1', '2', '0', '56', '15', '126', '7', '8', '29', '30',
-        '110', '120', '19', '14', '15', '21', '18', '1', '9', '20',
-        '5', '22', '3', '121', '125', '260', '217', '8', '95', '30', '365'
-      ];
+      const keys = this.getKeyValueList(this.recordType).map(item => item.key);
+      const values = this.getKeyValueList(this.recordType).map(item => item.value);
       return {
         tooltip: {
           show: true,
@@ -66,7 +157,7 @@
             data: values,
             type: 'line',
             symbol: 'circle',
-            symbolSize: 12,
+            symbolSize: 10,
             itemStyle: {borderWidth: 1, color: '#68B0AB', borderColor: '#68B0AB'},
           },
         ]
