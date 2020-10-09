@@ -153,7 +153,7 @@
 
     > button {
       width: 20%;
-      height: 19%;
+      padding: 1.2em 0;
       margin: .4em;
       border: 1px solid $color-highlight;
       background: $color-f;
@@ -163,7 +163,16 @@
       user-select: none;
       text-align: center;
       font-weight: bold;
+      @media (max-height: 736px) {
+        padding: 16px 0;
+      }
+      @media (max-height: 668px) {
+        padding: 10px 0;
+      }
 
+      @media (max-height: 640px) {
+        padding: 8px 0;
+      }
       &:active {
         color: $color-f;
         background: $color-highlight;
