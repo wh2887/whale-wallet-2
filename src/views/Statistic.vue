@@ -7,6 +7,10 @@
       <Chart class="chart" :options="chartOptions"/>
     </div>
     <div class="statistic-bottom">
+      <h3>
+        近 30 天<span v-if="recordType==='-'">支出</span><span v-else>收入</span>占比前五
+      </h3>
+      <Chart class="chart2" :options="chartOptions2"/>
     </div>
   </div>
 </template>
@@ -90,8 +94,11 @@
         });
         if (type === '-') {
           payArray.push({
-            key: dateString, value: found ? found.payTotal : 0
+            key: dateString,
+            value: found ? found.payTotal : 0,
+            items: found ? found.items : []
           });
+
           payArray.sort((a, b) => {
             if (a.key > b.key) {
               return 1;
@@ -103,7 +110,9 @@
           });
         } else {
           incomeArray.push({
-            key: dateString, value: found ? found.incomeTotal : 0
+            key: dateString,
+            value: found ? found.incomeTotal : 0,
+            items: found ? found.items : []
           });
           incomeArray.sort((a, b) => {
             if (a.key > b.key) {
@@ -118,9 +127,50 @@
       }
       if (type === '-') {
         return payArray;
-      } else {
+      } else if (type === '+') {
         return incomeArray;
+      } else {
+        return;
       }
+    }
+
+
+    get leaderboard() {
+      const items = this.getKeyValueList(this.recordType)!.map(item => item.items);
+      let total = 0;
+      const array = [];
+      const newArray: { variety: string; amount: number }[] = [];
+      for (let i = 0; i <= 29; i++) {
+        if (items[i].length !== 0) {
+          for (let j = 0; j < items[i].length; j++) {
+            if (items[i][j].type === this.recordType) {
+              total += items[i][j].amount;
+              array.push({
+                variety: items[i][j].tags.text,
+                amount: items[i][j].amount
+              });
+            }
+          }
+        }
+      }
+      array.forEach(el => {
+        const result = newArray.findIndex(ol => {return el.variety === ol.variety;});
+        if (result !== -1) {
+          newArray[result].amount = newArray[result].amount + el.amount;
+        } else {
+          newArray.push(el);
+        }
+      });
+      newArray.sort((a, b) => {
+        if (b.amount > a.amount) {
+          return 1;
+        } else if (a.amount === b.amount) {
+          return 0;
+        } else {
+          return -1;
+        }
+      });
+      return newArray.slice(0, 5);
     }
 
     @Watch('recordType')
@@ -130,8 +180,8 @@
 
 
     get chartOptions() {
-      const keys = this.getKeyValueList(this.recordType).map(item => item.key);
-      const values = this.getKeyValueList(this.recordType).map(item => item.value);
+      const keys = this.getKeyValueList(this.recordType)?.map(item => item.key);
+      const values = this.getKeyValueList(this.recordType)?.map(item => item.value);
       return {
         tooltip: {
           show: true,
@@ -162,6 +212,50 @@
           },
         ]
       };
+    }
+
+    get chartOptions2() {
+      const keys = this.leaderboard.map(item => item.variety);
+      const values = this.leaderboard.map(item => item.amount);
+      const array = [];
+      for (let i = 0; i < keys.length; i++) {
+        array.push({value: values[i], name: keys[i]});
+      }
+      return {
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b}: {c} ({d}%)'
+        },
+        legend: {
+          orient: 'vertical',
+          left: 10,
+          data: keys
+        },
+        series: [
+          {
+            name: '访问来源',
+            type: 'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+              show: false,
+              position: 'center'
+            },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: '30',
+                fontWeight: 'bold'
+              }
+            },
+            labelLine: {
+              show: false
+            },
+            data: array
+          }
+        ]
+      };
+
     }
   }
 </script>
@@ -200,6 +294,13 @@
       margin-top: $top-margin/2;
       margin-bottom: $top-margin/4;
       border-radius: $bg-radius;
+
+      > h3{
+        padding-top: .5em;
+        span{
+          display: inline-block;
+        }
+      }
     }
 
   }
