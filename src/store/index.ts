@@ -61,7 +61,7 @@ const store = new Vuex.Store({
             throw new Error('text duplicated');
           }
         } else {
-          if (hasText >= 1) {
+          if (hasText >= 1 && iconName !== payload.clonedTag.iconName) {
             throw new Error('text duplicated');
           }
           const tag = state.tagList.filter(item => item.id === id)[0];
