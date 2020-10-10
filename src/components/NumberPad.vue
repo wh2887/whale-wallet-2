@@ -19,7 +19,7 @@
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button @click="inputContent">+</button>
+      <button @click="add">+</button>
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
@@ -45,6 +45,7 @@
     @Prop() icon!: string;
     output = this.value.toString();
     result = 0;
+    arr = ['0'];
 
     @Watch('output')
     onOutputChanged() {
@@ -82,11 +83,8 @@
           addFlag = i;  // 假如第一次 + 下标是 3
         }
         if (this.output[i] === '.') {
-          if (input === '.' && this.output.indexOf('+') < 0){
+          if (input === '.' && this.output.indexOf('+') < 0) {
             return;
-          }else {
-            // input 不为点 且 output 包含 +
-            console.log('x');
           }
         }
       }
@@ -94,10 +92,19 @@
       this.output += input;
     }
 
+    add() {
+      // 点击 + ，就将 output 的值增加到数组中，之前的不能被覆盖
+      this.arr.push(this.output);
+      this.output = '0';
+    }
+
     done() {
-      this.result = eval(this.output);
-      this.output = '';
+      this.arr.push(this.output);
+      for (let i = 0; i < this.arr.length; i++) {
+        this.result += parseFloat(this.arr[i]);
+      }
       this.$emit('submit', this.result);
+      this.output = '0';
     }
 
     clear() {
