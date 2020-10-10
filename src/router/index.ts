@@ -44,11 +44,11 @@ const routes: Array<RouteConfig> = [
     component: TagEdit,
   },
 
-  {
-    path: '/more',
-    name: 'more',
-    component: More
-  },
+  // {
+  //   path: '/more',
+  //   name: 'more',
+  //   component: More
+  // },
   {
     path: '*',
     component: NotFound

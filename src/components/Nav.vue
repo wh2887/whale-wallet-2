@@ -1,22 +1,22 @@
 <template>
 
   <nav>
-    <router-link to="/statistic" class="item" active-class="selected">
-      <Icon name="statistics" class="circleBg"></Icon>
-      <span>统计</span>
+    <router-link to="/money" class="item" active-class="selected">
+      <Icon name="tianjia" class="circleBg"></Icon>
+      <span>记账</span>
     </router-link>
     <router-link to="/details" class="item" active-class="selected">
       <Icon name="huankuanmingxi" class="circleBg"></Icon>
       <span>明细</span>
     </router-link>
-    <router-link to="/money" class="item" active-class="selected">
-      <Icon name="tianjia" class="circleBg"></Icon>
-      <span>记账</span>
+    <router-link to="/statistic" class="item" active-class="selected">
+      <Icon name="statistics" class="circleBg"></Icon>
+      <span>统计</span>
     </router-link>
-    <router-link to="/more" class="item" active-class="selected">
-      <Icon name="more" class="circleBg"></Icon>
-      <span>更多</span>
-    </router-link>
+<!--    <router-link to="/more" class="item" active-class="selected">-->
+<!--      <Icon name="more" class="circleBg"></Icon>-->
+<!--      <span>更多</span>-->
+<!--    </router-link>-->
   </nav>
 
 </template>
