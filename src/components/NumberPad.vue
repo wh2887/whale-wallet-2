@@ -127,7 +127,7 @@
     height: 90%;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     border-radius: 12px;
     margin: .5em;
 
@@ -170,22 +170,31 @@
     @extend %clearFix;
 
     > button {
-      width: 20%;
-      height: 19%;
-      margin: .4em;
+      width: 25%;
+      height: 25%;
       border: 1px solid $color-highlight;
       background: $color-f;
       font-size: 1em;
       line-height: 1em;
-      border-radius: 8px;
       user-select: none;
       text-align: center;
       font-weight: bold;
+      &:first-child{
+        border-top-left-radius: 8px;
+      }
+      &:nth-child(4){
+        border-top-right-radius: 8px;
+      }
+      &:nth-child(13){
+        border-bottom-left-radius: 8px;
+      }
+      &:nth-child(12){
+        border-bottom-right-radius: 8px;
+      }
 
       &.done {
-        height: 38%;
+        height: 50%;
         float: right;
-        margin-right: .4em;
         background: #ffaa71;
 
         &:active {

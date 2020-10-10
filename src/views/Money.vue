@@ -92,6 +92,7 @@
       background: $color-f;
       width: $width; height: 18vh; border-radius: $bg-radius; margin-top: $top-margin/2;
       overflow-y: auto;
+      min-height: 76px;
 
       &::-webkit-scrollbar { width: 0 !important }
 
