@@ -101,6 +101,7 @@
     }
 
     .bottom {
+      height: 50vh;
       flex: 1;
       background: $color-f;
       width: $width;
