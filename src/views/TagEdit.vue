@@ -80,6 +80,8 @@
           window.alert('标签名称重复，请重新输入！');
         } else if (error.message === 'text empty') {
           window.alert('标签名称不能为空，请重新输入！');
+        } else if (error.message === 'text overtop') {
+          window.alert('标签名称不能超过三个！');
         }
       }
     }

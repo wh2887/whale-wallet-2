@@ -49,6 +49,8 @@ const store = new Vuex.Store({
       const nameList = state.tagList.map(item => item.iconName);
       if (text === '') {
         throw new Error('text empty');
+      }else if(text.length >3){
+        throw new Error('text overtop')
       }
       if (nameList.indexOf(iconName) >= 0) {
         const hasIconName = nameList.reduce((a, v) => v === iconName ? a + 1 : a, 0);
