@@ -1,6 +1,8 @@
 # 鲸鱼记账
 一款基于 Vue 技术栈开发的简介本地记账WebApp
 
+![](https://gitee.com/hellow2887/blogimage/raw/master/img/qrCode.png)
+
 ## 技术栈
 - Vue
 - Vuex
