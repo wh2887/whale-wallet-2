@@ -282,6 +282,16 @@
       background: $color-f;
       overflow: auto;
 
+      &::-webkit-scrollbar { width: 0 !important }
+
+      // chrome 和 Safari
+      & { overflow: -moz-scrollbars-none; }
+
+      // IE 10+
+      & { -ms-overflow-style: none; }
+
+      // Firefox
+
       .chart {
         width: 430%;
       }
@@ -295,9 +305,10 @@
       margin-bottom: $top-margin/4;
       border-radius: $bg-radius;
 
-      > h3{
+      > h3 {
         padding-top: .5em;
-        span{
+
+        span {
           display: inline-block;
         }
       }

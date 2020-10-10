@@ -1,29 +1,35 @@
-# whale-wallet-2
+# 鲸鱼记账
+一款基于 Vue 技术栈开发的简介本地记账WebApp
 
-## Project setup
+## 技术栈
+- Vue
+- Vuex
+- VueRouter
+- TypeScript
+- SCSS
+
+## 功能
+- 记录账单（包括金额、日期、分类等）
+- 分类编辑（增、改）
+- 账单明细
+- 近 30 天图表展示
+
+
+## 安装依赖
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### 开发
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+### 构建
 ```
 yarn build
 ```
 
-### Run your unit tests
-```
-yarn test:unit
-```
 
-### Lints and fixes files
-```
-yarn lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+

@@ -3,7 +3,6 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
-import * as dayjs from 'dayjs'
 
 
 Vue.config.productionTip = false
@@ -13,3 +12,9 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+
+
+if(document.documentElement.clientWidth > 500){
+  window.alert('请使用手机预览，以保证浏览效果！')
+}
