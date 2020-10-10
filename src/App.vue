@@ -1,22 +1,23 @@
 <template>
-  <a-locale-provider :locale="locale">
+  <a-config-provider :locale="locale">
     <div id="app">
       <router-view/>
       <Nav/>
     </div>
-  </a-locale-provider>
+  </a-config-provider>
 </template>
 
 <script>
   import Nav from '@/components/Nav'
   import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
-  import {DatePicker} from 'ant-design-vue'
+  import {DatePicker,ConfigProvider} from 'ant-design-vue'
   import Vue from 'vue'
   import moment from 'moment'
   import 'moment/locale/zh-cn'
 
   moment.locale('zh-cn')
   Vue.use(DatePicker)
+  Vue.component( ConfigProvider.name, ConfigProvider);
 
   export default {
     components: {Nav},
