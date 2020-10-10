@@ -13,7 +13,9 @@
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button>备注</button>
+      <button @click="clearOne" class="delete">
+        <Icon name="tuige"/>
+      </button>
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
@@ -21,13 +23,10 @@
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button @click="clearOne" class="delete">
-        <Icon name="tuige"/>
-      </button>
+      <button @click="done" class="done">完成</button>
       <button @click="inputContent">.</button>
       <button @click="inputContent">0</button>
       <button @click="clear">清零</button>
-      <button @click="done">完成</button>
     </div>
   </div>
 </template>
@@ -67,18 +66,29 @@
       if (this.output === '.') {
         this.output = '0.';
       }
-
       if (this.output === '+') {
         this.output = '';
       }
       if (this.output[this.output.length - 1] === ('+')) {
-        if (input === '+') {
-          return;
-        }
+        if (input === '+') { return; }
       }
-
       if (this.output[this.output.length - 1] === ('.')) {
         if (input === '.') { return; }
+      }
+      for (let i = 0; i < Array.from(this.output).length; i++) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        let addFlag = 0;
+        if (this.output[i] === '+') {
+          addFlag = i;  // 假如第一次 + 下标是 3
+        }
+        if (this.output[i] === '.') {
+          if (input === '.' && this.output.indexOf('+') < 0){
+            return;
+          }else {
+            // input 不为点 且 output 包含 +
+            console.log('x');
+          }
+        }
       }
 
       this.output += input;
@@ -150,6 +160,7 @@
     border-radius: 12px;
     width: 100%;
     flex: 1;
+    @extend %clearFix;
 
     > button {
       width: 20%;
@@ -164,12 +175,10 @@
       text-align: center;
       font-weight: bold;
 
-      &:active {
-        color: $color-f;
-        background: $color-highlight;
-      }
-
-      &:last-child {
+      &.done {
+        height: 38%;
+        float: right;
+        margin-right: .4em;
         background: #ffaa71;
 
         &:active {
@@ -177,6 +186,12 @@
           color: black;
         }
       }
+
+      &:active {
+        color: $color-f;
+        background: $color-highlight;
+      }
+
     }
   }
 

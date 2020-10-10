@@ -1,6 +1,6 @@
 <template>
   <div class="details-wrapper">
-    <QRCode v-if="toggle" :toggle="toggle"/>
+    <QRCode v-if="toggle" :toggle.sync="toggle"/>
     <header>
       <div class="title">
         <div class="logo">

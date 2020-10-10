@@ -11,6 +11,13 @@ $top-margin:1.4em;
 $chart-height: 200px;
 $toast-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.90);
 
+%clearFix {
+  &::after {
+    content: '';
+    clear: both;
+    display: block;
+  }
+}
 
 %displayAuto {
   background: $color-highlight;

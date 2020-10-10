@@ -15,8 +15,9 @@
   @Component
   export default class QRCode extends Vue {
     @Prop({required: true}) toggle!: boolean;
+
     hidden() {
-      this.toggle = false;
+      this.$emit('update:toggle', !this.toggle);
     }
 
   }
