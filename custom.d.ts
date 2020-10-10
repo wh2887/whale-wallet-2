@@ -18,4 +18,5 @@ type Result = { title: string; payTotal?: number; incomeTotal?: number; items: R
 type RootState = {
   recordList: RecordItem[];
   tagList: myTag[];
+  firstTimeFlag: Boolean
 }

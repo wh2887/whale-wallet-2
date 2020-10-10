@@ -67,9 +67,7 @@
     overflow-y: auto;
 
     &::-webkit-scrollbar { width: 0 !important }
-
     & { overflow: -moz-scrollbars-none; }
-
     & { -ms-overflow-style: none; }
 
     background: $color-f;

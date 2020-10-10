@@ -9,9 +9,16 @@ const store = new Vuex.Store({
   state: {
     recordList: [] as RecordItem[],
     tagList: [] as myTag[],
+    firstTimeFlag: true,
   } as RootState,
 
   mutations: {
+    handleFirst(state) {
+      state.firstTimeFlag = true;
+    },
+    handleNotFirst(state) {
+      state.firstTimeFlag = false;
+    },
     initTag(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
       if (!state.tagList || state.tagList.length === 0) {

@@ -1,5 +1,6 @@
 <template>
   <div class="details-wrapper">
+    <QRCode v-if="toggle" :toggle="toggle"/>
     <header>
       <div class="title">
         <div class="logo">
@@ -54,11 +55,12 @@
   import 'ant-design-vue/dist/antd.css';
   import {Moment} from 'moment';
   import {DatePicker} from 'ant-design-vue';
+  import QRCode from '@/components/QRCode.vue';
 
   Vue.use(DatePicker);
 
   @Component({
-    components: {DetailList, SegmentControls, Icon}
+    components: {QRCode, DetailList, SegmentControls, Icon}
   })
   export default class Details extends Vue {
     monthIncome = 0;
@@ -67,12 +69,18 @@
     year = dayjs(new Date()).format('YYYY');
     month = dayjs(new Date()).format('MM');
     selectedMonthList!: Result[];
+    toggle = false;
 
     beforeCreate() {
       this.$store.commit('fetchRecords');
     }
 
     created() {
+      if (this.$store.state.firstTimeFlag) {
+        this.qrToggle();
+        this.$store.commit('handleNotFirst');
+      }
+
       this.monthTotal(this.year, this.month);
     }
 
@@ -81,6 +89,12 @@
       this.year = dayjs(this.time).format('YYYY');
       this.month = dayjs(this.time).format('MM');
       this.monthTotal(this.year, this.month);
+    }
+
+    qrToggle() {
+      if (document.documentElement.clientWidth > 500) {
+        this.toggle = true;
+      }
     }
 
     get recordList() {
